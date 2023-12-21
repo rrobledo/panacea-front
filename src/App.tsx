@@ -134,7 +134,9 @@ function App() {
           <RefineSnackbarProvider>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider("http://localhost:8000/costos")}
+                dataProvider={dataProvider(
+                  "https://panacea-one.vercel.app/costos"
+                )}
                 notificationProvider={notificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
