@@ -144,9 +144,8 @@ function App() {
                 authProvider={authProvider}
                 resources={[
                   {
-                    name: "supplies",
+                    name: "insumos",
                     identifier: "Insumos",
-
                     list: "/supplies",
                     create: "/supplies/create",
                     edit: "/supplies/edit/:id/",
@@ -156,7 +155,7 @@ function App() {
                     },
                   },
                   {
-                    name: "costs",
+                    name: "costos",
                     list: "/costs",
                     create: "/costs/create",
                     edit: "/costs/edit/:id/",
@@ -176,7 +175,7 @@ function App() {
                     },
                   },
                   {
-                    name: "reports/prices",
+                    name: "costos_materia_prima",
                     list: "/precios",
                     meta: {
                       parent: "reportes",
