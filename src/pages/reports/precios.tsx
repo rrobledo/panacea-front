@@ -13,19 +13,18 @@ import { useList, keys } from "@refinedev/core";
 export const Precios: React.FC<IResourceComponentsProps> = () => {
   const { dataGridProps } = useDataGrid();
 
-  const { data, isLoading } = useList({
-    resource: "reports/prices",
-    config: {
-      filters: [
-        {
-          field: "status",
-          operator: "eq",
-          value: "draft",
-        },
-      ],
-      pagination: { pageSize: 1 },
-    },
-  });
+  // const { data, isLoading } = useList({
+  //   config: {
+  //     filters: [
+  //       {
+  //         field: "status",
+  //         operator: "eq",
+  //         value: "draft",
+  //       },
+  //     ],
+  //     pagination: { pageSize: 1 },
+  //   },
+  // });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
