@@ -37,6 +37,8 @@ import {
 import { CostCreate, CostEdit, CostList, CostShow } from "./pages/costs";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
+import { Precios } from "./pages/reports";
+import ProductHistoryPage from "./pages/reports/product_history";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -143,6 +145,8 @@ function App() {
                 resources={[
                   {
                     name: "supplies",
+                    identifier: "Insumos",
+
                     list: "/supplies",
                     create: "/supplies/create",
                     edit: "/supplies/edit/:id/",
@@ -159,6 +163,23 @@ function App() {
                     show: "/costs/show/:id",
                     meta: {
                       canDelete: true,
+                    },
+                  },
+                  {
+                    name: "Reportes",
+                  },
+                  {
+                    name: "Historia de Productos ",
+                    list: "/product_history",
+                    meta: {
+                      parent: "reportes",
+                    },
+                  },
+                  {
+                    name: "reports/prices",
+                    list: "/precios",
+                    meta: {
+                      parent: "reportes",
                     },
                   },
                 ]}
@@ -181,10 +202,15 @@ function App() {
                       </Authenticated>
                     }
                   >
-                    <Route
-                      index
-                      element={<NavigateToResource resource="blog_posts" />}
-                    />
+                    <Route path="/">
+                      <Route index element={<InsumosList />} />
+                    </Route>
+                    <Route path="/precios">
+                      <Route index element={<Precios />} />
+                    </Route>
+                    <Route path="/product_history">
+                      <Route index element={<ProductHistoryPage />} />
+                    </Route>
                     <Route path="/supplies">
                       <Route index element={<InsumosList />} />
                       <Route path="create" element={<InsumosCreate />} />

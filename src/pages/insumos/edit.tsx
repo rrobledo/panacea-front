@@ -63,6 +63,19 @@ export const InsumosEdit: React.FC<IResourceComponentsProps> = () => {
           name="name"
         />
         <TextField
+          {...register("measure_units", {
+            required: "This field is required",
+          })}
+          error={!!(errors as any)?.name}
+          helperText={(errors as any)?.name?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label="Unidades"
+          name="measure_units"
+        />
+        <TextField
           {...register("measure", {
             required: "This field is required",
             valueAsNumber: true,

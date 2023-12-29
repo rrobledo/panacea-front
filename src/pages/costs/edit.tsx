@@ -59,7 +59,7 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Revenue"
+          label="Porcentaje de Ganancia"
           name="revenue"
         />
         <TextField
@@ -73,8 +73,21 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Current Price"
+          label="Precio Actual"
           name="current_price"
+        />
+        <TextField
+          {...register("measure_units", {
+            required: "This field is required",
+          })}
+          error={!!(errors as any)?.code}
+          helperText={(errors as any)?.code?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label="Unidad de Medida"
+          name="measure_units"
         />
         <TextField
           {...register("units", {
@@ -87,8 +100,21 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Units"
+          label="Unidades Producidas por Lote"
           name="units"
+        />
+        <TextField
+          {...register("production_time", {
+            required: "This field is required",
+          })}
+          error={!!(errors as any)?.code}
+          helperText={(errors as any)?.code?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label="Tiempo total produccion lote"
+          name="production_time"
         />
       </Box>
     </Edit>

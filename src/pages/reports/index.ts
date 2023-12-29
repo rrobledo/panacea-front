@@ -1,0 +1,1 @@
+export { Precios } from "./precios";

@@ -28,7 +28,11 @@ export const InsumosShow: React.FC<IResourceComponentsProps> = () => {
         </Typography>
         <TextField value={record?.name} />
         <Typography variant="body1" fontWeight="bold">
-          Measure
+          Unidades
+        </Typography>
+        <TextField value={record?.measure_units} />
+        <Typography variant="body1" fontWeight="bold">
+          Cantidad
         </Typography>
         <NumberField value={record?.measure ?? ""} />
         <Typography variant="body1" fontWeight="bold">

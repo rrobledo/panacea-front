@@ -21,9 +21,12 @@
     "@mui/lab": "^5.0.0-alpha.85",
     "@mui/material": "^5.8.6",
     "@mui/x-data-grid": "^6.6.0",
+    "apexcharts": "^3.41.0",
     "react-hook-form": "^7.30.0",
     "@refinedev/react-router-v6": "^4.1.0",
-    "axios": "^1.6.2"
+    "axios": "^1.6.2",
+    "react-apexcharts": "^1.4.0",
+    "react-dropdown-select": "^4.9.4"
   },
   "devDependencies": {
     "@types/node": "^18.16.2",

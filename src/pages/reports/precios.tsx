@@ -10,64 +10,49 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { useList, keys } from "@refinedev/core";
 
-export const InsumosList: React.FC<IResourceComponentsProps> = () => {
+export const Precios: React.FC<IResourceComponentsProps> = () => {
   const { dataGridProps } = useDataGrid();
+
+  const { data, isLoading } = useList({
+    resource: "reports/prices",
+    config: {
+      filters: [
+        {
+          field: "status",
+          operator: "eq",
+          value: "draft",
+        },
+      ],
+      pagination: { pageSize: 1 },
+    },
+  });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
-        field: "id",
-        headerName: "Id",
+        field: "product_code",
+        headerName: "Codigo",
         minWidth: 50,
       },
       {
-        field: "code",
-        flex: 1,
-        headerName: "Codigo",
-        minWidth: 200,
-      },
-      {
-        field: "name",
+        field: "product_name",
         flex: 1,
         headerName: "Nombre",
         minWidth: 200,
       },
       {
-        field: "measure_units",
+        field: "units",
         flex: 1,
         headerName: "Unidades",
-        minWidth: 200,
-      },
-      {
-        field: "measure",
-        flex: 1,
-        headerName: "Capacidad",
         type: "number",
         minWidth: 200,
       },
       {
-        field: "price",
+        field: "suggested_price",
         flex: 1,
-        headerName: "Precio",
+        headerName: "Costo",
         type: "number",
         minWidth: 200,
-      },
-      {
-        field: "actions",
-        headerName: "Actions",
-        sortable: false,
-        renderCell: function render({ row }) {
-          return (
-            <>
-              <EditButton hideText recordItemId={row.id} />
-              <ShowButton hideText recordItemId={row.id} />
-              {/* <DeleteButton hideText recordItemId={row.id} /> */}
-            </>
-          );
-        },
-        align: "center",
-        headerAlign: "center",
-        minWidth: 80,
       },
     ],
     []
@@ -78,6 +63,7 @@ export const InsumosList: React.FC<IResourceComponentsProps> = () => {
       <DataGrid
         {...dataGridProps}
         columns={columns}
+        getRowId={(row: any) => row.product_code}
         autoHeight
         initialState={{
           columns: {
