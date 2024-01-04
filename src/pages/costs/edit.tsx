@@ -1,7 +1,10 @@
 import { Edit } from "@refinedev/mui";
 import { Box, TextField } from "@mui/material";
 import { useForm } from "@refinedev/react-hook-form";
-import { IResourceComponentsProps } from "@refinedev/core";
+import { IResourceComponentsProps, useList } from "@refinedev/core";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import React from "react";
+import { useDataGrid } from "@refinedev/mui";
 
 export const CostEdit: React.FC<IResourceComponentsProps> = () => {
   const {
@@ -13,6 +16,47 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
   } = useForm();
 
   const costsData = queryResult?.data?.data;
+  console.log(costsData?.id);
+  const cost_code = costsData?.id?.toString().replace("/", "");
+
+  const { data: costDetailData, isLoading: costDetailLoading } = useList({
+    resource: `costs_details`,
+    filters: [
+      {
+        field: "cost_code",
+        operator: "eq",
+        value: [cost_code],
+      },
+    ],
+  });
+  const costDetail = costDetailData?.data;
+  const { dataGridProps } = useDataGrid();
+
+  const columns: GridColDef[] = [
+    {
+      field: "supply_name",
+      headerName: "Insumo",
+      width: 300,
+      editable: true,
+    },
+    {
+      field: "supply_measure_units",
+      headerName: "Unidad",
+      width: 15,
+      editable: true,
+    },
+    {
+      field: "amount",
+      headerName: "Cantidad",
+      type: "number",
+      width: 110,
+      editable: true,
+    },
+  ];
+
+  if (costDetailLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
@@ -117,6 +161,12 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
           name="production_time"
         />
       </Box>
+      <DataGrid
+        rows={costDetail}
+        columns={columns}
+        autoHeight
+        getRowId={(row: any) => row.supply_code}
+      />
     </Edit>
   );
 };
