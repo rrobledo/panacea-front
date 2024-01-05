@@ -16,7 +16,6 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
   } = useForm();
 
   const costsData = queryResult?.data?.data;
-  console.log(costsData?.id);
   const cost_code = costsData?.id?.toString().replace("/", "");
 
   const { data: costDetailData, isLoading: costDetailLoading } = useList({
@@ -29,7 +28,7 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
       },
     ],
   });
-  const costDetail = costDetailData?.data;
+  const costDetail: any = costDetailData?.data;
   const { dataGridProps } = useDataGrid();
 
   const columns: GridColDef[] = [
