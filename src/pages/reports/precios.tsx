@@ -13,19 +13,6 @@ import { useList, keys } from "@refinedev/core";
 export const Precios: React.FC<IResourceComponentsProps> = () => {
   const { dataGridProps } = useDataGrid();
 
-  // const { data, isLoading } = useList({
-  //   config: {
-  //     filters: [
-  //       {
-  //         field: "status",
-  //         operator: "eq",
-  //         value: "draft",
-  //       },
-  //     ],
-  //     pagination: { pageSize: 1 },
-  //   },
-  // });
-
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
@@ -53,6 +40,20 @@ export const Precios: React.FC<IResourceComponentsProps> = () => {
         type: "number",
         minWidth: 200,
       },
+      {
+        field: "current_price",
+        flex: 1,
+        headerName: "Precio Actual",
+        type: "number",
+        minWidth: 200,
+      },
+      {
+        field: "revenue",
+        flex: 1,
+        headerName: "% Ganancia",
+        type: "number",
+        minWidth: 200,
+      },
     ],
     []
   );
@@ -69,6 +70,7 @@ export const Precios: React.FC<IResourceComponentsProps> = () => {
             columnVisibilityModel: {
               // Hide columns status and traderName, the other columns will remain visible
               id: false,
+              pruduct_code: false,
             },
           },
         }}

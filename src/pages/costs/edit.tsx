@@ -53,9 +53,9 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
     },
   ];
 
-  if (costDetailLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (costDetailLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
@@ -160,12 +160,12 @@ export const CostEdit: React.FC<IResourceComponentsProps> = () => {
           name="production_time"
         />
       </Box>
-      <DataGrid
+      {/* <DataGrid
         rows={costDetail}
         columns={columns}
         autoHeight
         getRowId={(row: any) => row.supply_code}
-      />
+      /> */}
     </Edit>
   );
 };
