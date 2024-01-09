@@ -48,11 +48,26 @@ export const Precios: React.FC<IResourceComponentsProps> = () => {
         minWidth: 200,
       },
       {
-        field: "revenue",
+        field: "current_revenue",
         flex: 1,
-        headerName: "% Ganancia",
+        headerName: "Ganancia",
         type: "number",
         minWidth: 200,
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        sortable: false,
+        renderCell: function render({ row }) {
+          return (
+            <>
+              <ShowButton hideText recordItemId={row.product_code} />
+            </>
+          );
+        },
+        align: "center",
+        headerAlign: "center",
+        minWidth: 80,
       },
     ],
     []
