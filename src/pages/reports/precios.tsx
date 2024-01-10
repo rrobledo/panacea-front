@@ -85,7 +85,7 @@ export const Precios: React.FC<IResourceComponentsProps> = () => {
             columnVisibilityModel: {
               // Hide columns status and traderName, the other columns will remain visible
               id: false,
-              pruduct_code: false,
+              product_code: false,
             },
           },
         }}
