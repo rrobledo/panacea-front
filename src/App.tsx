@@ -37,7 +37,7 @@ import {
 import { CostCreate, CostEdit, CostList, CostShow } from "./pages/costs";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
-import { Precios, CostDetailShow } from "./pages/reports";
+import { Precios, CostDetailShow, Planning } from "./pages/reports";
 import ProductHistoryPage from "./pages/reports/product_history";
 
 const axiosInstance = axios.create();
@@ -182,6 +182,13 @@ function App() {
                       parent: "reportes",
                     },
                   },
+                  {
+                    name: "planning",
+                    list: "/planning",
+                    meta: {
+                      parent: "reportes",
+                    },
+                  },
                 ]}
                 options={{
                   syncWithLocation: true,
@@ -204,6 +211,9 @@ function App() {
                   >
                     <Route path="/">
                       <Route index element={<InsumosList />} />
+                    </Route>
+                    <Route path="/planning">
+                      <Route index element={<Planning />} />
                     </Route>
                     <Route path="/costos_materia_prima">
                       <Route index element={<Precios />} />
