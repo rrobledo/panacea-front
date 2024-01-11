@@ -168,13 +168,6 @@ function App() {
                     name: "Reportes",
                   },
                   {
-                    name: "Historia de Productos ",
-                    list: "/product_history",
-                    meta: {
-                      parent: "reportes",
-                    },
-                  },
-                  {
                     name: "costos_materia_prima",
                     list: "/costos_materia_prima",
                     show: "/costos_materia_prima/show/:id",
@@ -185,6 +178,13 @@ function App() {
                   {
                     name: "planning",
                     list: "/planning",
+                    meta: {
+                      parent: "reportes",
+                    },
+                  },
+                  {
+                    name: "Historia de Productos ",
+                    list: "/product_history",
                     meta: {
                       parent: "reportes",
                     },
