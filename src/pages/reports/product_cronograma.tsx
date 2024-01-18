@@ -10,7 +10,7 @@ import Select from "react-dropdown-select";
 
 // export default ProductHistoryPage;
 
-class ProductHistoryPage extends React.Component<
+class ProductCronogramaPage extends React.Component<
   {},
   {
     error: any;
@@ -52,7 +52,7 @@ class ProductHistoryPage extends React.Component<
           curve: "smooth",
         },
         title: {
-          text: "Historico mensual por categoria",
+          text: "Cronograma Semanal por Categoria (Promedio de ventas de los ultimos 2 meses)",
           align: "left",
         },
         grid: {
@@ -68,7 +68,7 @@ class ProductHistoryPage extends React.Component<
         xaxis: {
           categories: [],
           title: {
-            text: "Meses",
+            text: "Dias Semana",
           },
         },
         yaxis: {
@@ -88,7 +88,7 @@ class ProductHistoryPage extends React.Component<
   }
 
   componentDidMount() {
-    fetch("https://panacea-one.vercel.app/costos/products/XXX/history")
+    fetch("https://panacea-one.vercel.app/costos/products/XXX/cronograma")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -111,7 +111,7 @@ class ProductHistoryPage extends React.Component<
 
   onChangeProduct(values: any) {
     fetch(
-      `https://panacea-one.vercel.app/costos/products/${values[0].value}/history`
+      `https://panacea-q5h5b8doi-rauls-projects-d37b0ed8.vercel.app/costos/products/${values[0].value}/cronograma`
     )
       .then((res) => res.json())
       .then(
@@ -158,4 +158,4 @@ class ProductHistoryPage extends React.Component<
   }
 }
 
-export default ProductHistoryPage;
+export default ProductCronogramaPage;

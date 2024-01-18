@@ -39,6 +39,7 @@ import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 import { Precios, CostDetailShow, Planning } from "./pages/reports";
 import ProductHistoryPage from "./pages/reports/product_history";
+import ProductCronogramaPage from "./pages/reports/product_cronograma";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -138,6 +139,7 @@ function App() {
               <Refine
                 dataProvider={dataProvider(
                   "https://panacea-one.vercel.app/costos"
+                  // "http://localhost:8000/costos"
                 )}
                 notificationProvider={notificationProvider}
                 routerProvider={routerBindings}
@@ -189,6 +191,13 @@ function App() {
                       parent: "reportes",
                     },
                   },
+                  {
+                    name: "Cronograma",
+                    list: "/product_cronograma",
+                    meta: {
+                      parent: "reportes",
+                    },
+                  },
                 ]}
                 options={{
                   syncWithLocation: true,
@@ -221,6 +230,9 @@ function App() {
                     </Route>
                     <Route path="/product_history">
                       <Route index element={<ProductHistoryPage />} />
+                    </Route>
+                    <Route path="/product_cronograma">
+                      <Route index element={<ProductCronogramaPage />} />
                     </Route>
                     <Route path="/supplies">
                       <Route index element={<InsumosList />} />
