@@ -40,6 +40,7 @@ import { parseJwt } from "./utils/parse-jwt";
 import { Precios, CostDetailShow, Planning } from "./pages/reports";
 import ProductHistoryPage from "./pages/reports/product_history";
 import ProductCronogramaPage from "./pages/reports/product_cronograma";
+import ProductCronogramaByWeekOfMonthPage from "./pages/reports/product_cronograma_by_week_of_month";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -192,6 +193,13 @@ function App() {
                     },
                   },
                   {
+                    name: "Cronograma Semanal Local",
+                    list: "/product_cronograma_by_week",
+                    meta: {
+                      parent: "reportes",
+                    },
+                  },
+                  {
                     name: "Cronograma",
                     list: "/product_cronograma",
                     meta: {
@@ -230,6 +238,12 @@ function App() {
                     </Route>
                     <Route path="/product_history">
                       <Route index element={<ProductHistoryPage />} />
+                    </Route>
+                    <Route path="/product_cronograma_by_week">
+                      <Route
+                        index
+                        element={<ProductCronogramaByWeekOfMonthPage />}
+                      />
                     </Route>
                     <Route path="/product_cronograma">
                       <Route index element={<ProductCronogramaPage />} />
