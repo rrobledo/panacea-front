@@ -38,6 +38,8 @@ function DataList(props: any) {
   const editAction = props.editAction != undefined ? props.editAction : true;
   const viewAction = props.viewAction != undefined ? props.viewAction : true;
   const rowIdName = props.rowIdName != undefined ? props.rowIdName : "id";
+  const summary = props.summary;
+  const scroll = props.scroll;
   const resourceParent =
     props.resourceParent != undefined ? `${props.resourceParent}/` : "";
 
@@ -140,6 +142,8 @@ function DataList(props: any) {
           columns={columns}
           loading={isLoading}
           pagination={false}
+          scroll={scroll}
+          summary={summary}
         />
       </div>
     </div>
