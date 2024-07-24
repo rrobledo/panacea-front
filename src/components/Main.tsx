@@ -28,6 +28,7 @@ import Productos from "../cruds/productos/productos";
 import ProductosEdit from "../cruds/productos/productosEdit";
 import ProductosCreate from "../cruds/productos/productosCreate";
 import CostosMateriaPrima from "../reportes/costos/costosMateriaPrima";
+import CostosMateriaPrimaView from "../reportes/costos/costosMateriaPrimaView";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -200,6 +201,7 @@ const Main = () => {
                 <div
                   style={{
                     padding: 24,
+                    width: "100%",
                     minHeight: "85vh",
                     background: colorBgContainer,
                     borderRadius: borderRadiusLG,
@@ -207,20 +209,24 @@ const Main = () => {
                 >
                   <Routes>
                     <Route
+                      key="/"
                       path="/"
                       element={<Insumos ds={dataResource} resource="insumos" />}
                     ></Route>
                     <Route
+                      key="/insumos"
                       path="/insumos"
                       element={<Insumos ds={dataResource} resource="insumos" />}
                     />
                     <Route
+                      key="/insumos/edit/:id"
                       path="/insumos/edit/:id"
                       element={
                         <InsumosEdit ds={dataResource} resource="insumos" />
                       }
                     />
                     <Route
+                      key="/insumos/create"
                       path="/insumos/create"
                       element={
                         <InsumosCreate ds={dataResource} resource="insumos" />
@@ -229,12 +235,14 @@ const Main = () => {
 
                     {/* PRODUCTOS */}
                     <Route
+                      key="/productos"
                       path="/productos"
                       element={
                         <Productos ds={dataResource} resource="productos" />
                       }
                     />
                     <Route
+                      key="/productos/create"
                       path="/productos/create"
                       element={
                         <ProductosCreate
@@ -244,6 +252,7 @@ const Main = () => {
                       }
                     />
                     <Route
+                      key="/productos/edit/:id"
                       path="/productos/edit/:id"
                       element={
                         <ProductosEdit ds={dataResource} resource="productos" />
@@ -252,12 +261,14 @@ const Main = () => {
 
                     {/* PRODUCTOS*/}
                     <Route
+                      key="/productos/:producto_id/costos/edit/:id"
                       path="/productos/:producto_id/costos/edit/:id"
                       element={
                         <CostosDetailEdit ds={dataResource} resource="costos" />
                       }
                     />
                     <Route
+                      key="/productos/:producto_id/costos/create"
                       path="/productos/:producto_id/costos/create"
                       element={
                         <CostosDetailCreate
@@ -270,9 +281,20 @@ const Main = () => {
 
                     {/* REPORTES*/}
                     <Route
+                      key="/costos_materia_prima"
                       path="/costos_materia_prima"
                       element={
                         <CostosMateriaPrima
+                          ds={dataResource}
+                          resource="costos_materia_prima"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/costos_materia_prima/view/:id"
+                      path="/costos_materia_prima/view/:id"
+                      element={
+                        <CostosMateriaPrimaView
                           ds={dataResource}
                           resource="costos_materia_prima"
                         />

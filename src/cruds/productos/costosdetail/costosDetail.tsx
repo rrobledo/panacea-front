@@ -33,6 +33,7 @@ function CostosDetail(props: any) {
         addAction={true}
         resource={props.resource}
         resourceParent={props.resourceParent}
+        viewAction={false}
       />
     </>
   );

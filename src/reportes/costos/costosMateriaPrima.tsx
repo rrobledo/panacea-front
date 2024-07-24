@@ -3,6 +3,12 @@ import DataList from "../../components/DataList";
 function CostosMateriaPrima(props: any) {
   const columns = [
     {
+      title: "Producto ID",
+      dataIndex: "producto_id",
+      key: "producto_id",
+      hidden: true,
+    },
+    {
       title: "Producto",
       dataIndex: "producto_nombre",
       key: "producto_nombre",
@@ -130,7 +136,16 @@ function CostosMateriaPrima(props: any) {
   return (
     <>
       <b>COSTOS MATERIA PRIMA</b>
-      <DataList ds={props.ds} resource={props.resource} columns={columns} />;
+      <DataList
+        ds={props.ds}
+        resource={props.resource}
+        columns={columns}
+        addAction={false}
+        delAction={false}
+        editAction={false}
+        rowIdName="producto_id"
+      />
+      ;
     </>
   );
 }

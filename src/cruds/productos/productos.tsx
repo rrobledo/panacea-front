@@ -61,7 +61,7 @@ function Productos(props: any) {
         ds={props.ds}
         resource={props.resource}
         columns={columns}
-        addAction={true}
+        viewAction={false}
       />
       ;
     </>

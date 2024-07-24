@@ -33,7 +33,10 @@ function DataList(props: any) {
   const [dataSource, setDataSource] = useState([]);
   const [columns, setColumns] = useState([]);
 
-  const addAction = props.addAction != undefined ? props.addAction : false;
+  const addAction = props.addAction != undefined ? props.addAction : true;
+  const delAction = props.delAction != undefined ? props.delAction : true;
+  const editAction = props.editAction != undefined ? props.editAction : true;
+  const viewAction = props.viewAction != undefined ? props.viewAction : true;
   const rowIdName = props.rowIdName != undefined ? props.rowIdName : "id";
   const resourceParent =
     props.resourceParent != undefined ? `${props.resourceParent}/` : "";
@@ -48,7 +51,7 @@ function DataList(props: any) {
   const addActions = () => {
     let cols = props.columns != undefined ? props.columns : [];
 
-    if (addAction) {
+    if (delAction == true || editAction == true || viewAction == true) {
       cols.push({
         title: "Accion",
         key: "action",
@@ -56,9 +59,19 @@ function DataList(props: any) {
           <Space size="middle">
             <Link
               to={{
+                pathname: `/${resourceParent}${props.resource}/view/${record[rowIdName]}`,
+              }}
+              state={{ resourceParent: resourceParent }}
+              hidden={!viewAction}
+            >
+              Ver
+            </Link>
+            <Link
+              to={{
                 pathname: `/${resourceParent}${props.resource}/edit/${record[rowIdName]}`,
               }}
               state={{ resourceParent: resourceParent }}
+              hidden={!editAction}
             >
               Editar
             </Link>
@@ -66,6 +79,7 @@ function DataList(props: any) {
               onClick={() => {
                 deleteItem(record[rowIdName]);
               }}
+              hidden={!delAction}
             >
               Eliminar
             </a>
@@ -115,6 +129,7 @@ function DataList(props: any) {
           state={{
             resourceParent: resourceParent,
           }}
+          hidden={!addAction}
         >
           <Button type="primary">Nuevo</Button>
         </Link>

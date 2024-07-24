@@ -5,10 +5,10 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24,
+      span: 15,
     },
     sm: {
-      span: 6,
+      span: 15,
     },
   },
   wrapperCol: {
@@ -16,7 +16,7 @@ const formItemLayout = {
       span: 24,
     },
     sm: {
-      span: 14,
+      span: 15,
     },
   },
 };
@@ -27,8 +27,11 @@ function DataEdit(props: any) {
   const [isLoading, setIsLoading] = useState(true);
   const form = Form.useForm()[0];
   const dataSource = props.ds;
+  const editable = props.editable != undefined ? props.editable : true;
   const resourceParent = useLocation().state.resourceParent;
+  let submitButton = <></>;
 
+  console.log(editable);
   const onsubmit = (values: any) => {
     setIsLoading(true);
     dataSource
@@ -62,6 +65,13 @@ function DataEdit(props: any) {
     );
   }
 
+  if (editable == true) {
+    submitButton = (
+      <Button type="primary" htmlType="submit">
+        Actualizar
+      </Button>
+    );
+  }
   return (
     <div
       style={{
@@ -90,9 +100,7 @@ function DataEdit(props: any) {
             }}
           >
             <Button onClick={() => navigate(-1)}>Cancelar</Button>
-            <Button type="primary" htmlType="submit">
-              Actualizar
-            </Button>
+            {submitButton}
           </Form.Item>
         </Form>
       </div>
