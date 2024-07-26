@@ -3,7 +3,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useEffect, useState } from "react";
-import { Button, Spin } from "antd";
+import { Button, Form, Row, Col, Select, Spin } from "antd";
 
 // Row Data Interface
 interface IRow {
@@ -63,20 +63,15 @@ interface IRow {
 
 // Create new GridExample component
 const Programacion = (props: any) => {
-  const [rowData, setRowData] = useState<IRow[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [updates, setUpdate] = useState(new Map());
-
   // Column Definitions: Defines & controls grid columns.
   const [colDefs, setColDefs] = useState<ColGroupDef[]>([
     {
       headerName: "",
       children: [
-        { field: "id", editable: true, hide: true },
-        { field: "producto", editable: true, hide: true },
+        { field: "id", hide: true },
+        { field: "producto", hide: true },
         {
           field: "producto_nombre",
-          editable: true,
           width: 200,
           headerName: "Producto",
           pinned: "left",
@@ -86,7 +81,6 @@ const Programacion = (props: any) => {
           editable: true,
           headerName: "Responsable",
           width: 150,
-          pinned: "left",
         },
       ],
     },
@@ -399,14 +393,16 @@ const Programacion = (props: any) => {
       ],
     },
   ]);
-
   const defaultColDef: ColDef = { width: 70 };
+  const [rowData, setRowData] = useState<IRow[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [responsable, setResponsable] = useState("Todos");
+  const [updates, setUpdate] = useState(new Map());
 
   const onCellValueChanged = (event: any) => {
     const key = event.data.id;
     delete event.data["producto"];
     delete event.data["producto_nombre"];
-    delete event.data["responsable"];
     updates.set(key, event.data);
     event.colDef.cellStyle = { backgroundColor: "cyan" };
     event.api.refreshCells({
@@ -416,11 +412,13 @@ const Programacion = (props: any) => {
     });
   };
 
-  const getList = () => {
-    props.ds.getList(`${props.resource}`).then((res: any) => {
-      setRowData(res.data);
-      setIsLoading(false);
-    });
+  const getList = (responsable: string = "Todos") => {
+    props.ds
+      .getList(`${props.resource}?responsable=${responsable}`)
+      .then((res: any) => {
+        setRowData(res.data);
+        setIsLoading(false);
+      });
   };
 
   const onsubmit = () => {
@@ -446,6 +444,12 @@ const Programacion = (props: any) => {
     getList();
   }, []);
 
+  const onChangeResponsable = (value: any) => {
+    setResponsable(value);
+    setIsLoading(true);
+    getList(value);
+  };
+
   // Container: Defines the grid's theme & dimensions.
   return (
     <div>
@@ -457,6 +461,21 @@ const Programacion = (props: any) => {
         <Button type="primary" htmlType="submit" onClick={onsubmit}>
           Actualizar
         </Button>
+      </div>
+      <div>
+        <Row>
+          <Col span={5}>
+            <Form.Item label="Responsable">
+              <Select defaultValue="Todos" onChange={onChangeResponsable}>
+                <Select.Option value="Todos">Todos</Select.Option>
+                <Select.Option value="Dalma">Dalma</Select.Option>
+                <Select.Option value="Kevin">Kevin</Select.Option>
+                <Select.Option value="Marcos">Marcos</Select.Option>
+                <Select.Option value="Malena">Malena</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
       </div>
       <Spin tip="Loading" size="large" spinning={isLoading}>
         <div
