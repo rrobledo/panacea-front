@@ -30,6 +30,7 @@ import ProductosCreate from "../cruds/productos/productosCreate";
 import CostosMateriaPrima from "../reportes/costos/costosMateriaPrima";
 import CostosMateriaPrimaView from "../reportes/costos/costosMateriaPrimaView";
 import Planning2024 from "../reportes/costos/planning2024";
+import Programacion from "../reportes/costos/programacion";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -39,8 +40,8 @@ const Main = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const dataResource: DataResource = new DataResource(
-    "https://panacea-one.vercel.app/costos"
-    // "http://localhost:8000/costos"
+    // "https://panacea-one.vercel.app/costos"
+    "http://localhost:8000/costos"
   );
 
   const items = [
@@ -68,6 +69,11 @@ const Main = () => {
           key: "/planning_2024",
           icon: <GroupOutlined />,
           label: <Link to="/planning_2024">Planning 2024</Link>,
+        },
+        {
+          key: "/programacion",
+          icon: <GroupOutlined />,
+          label: <Link to="/programacion">Programacion</Link>,
         },
       ],
     },
@@ -313,6 +319,16 @@ const Main = () => {
                         <Planning2024
                           ds={dataResource}
                           resource="planning_2024"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/programacion"
+                      path="/programacion"
+                      element={
+                        <Programacion
+                          ds={dataResource}
+                          resource="programacion"
                         />
                       }
                     />

@@ -99,7 +99,9 @@ function DataList(props: any) {
       onOk() {
         props.ds
           .delete(`${resourceParent}${props.resource}`, id)
-          .then((res: any) => {})
+          .then((res: any) => {
+            window.location.reload();
+          })
           .catch((error: any) => {
             console.log(error);
           })
