@@ -3,7 +3,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useEffect, useState } from "react";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 
 // Row Data Interface
 interface IRow {
@@ -458,14 +458,19 @@ const Programacion = (props: any) => {
           Actualizar
         </Button>
       </div>
-      <div className={"ag-theme-quartz"} style={{ width: "100%", height: 700 }}>
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={colDefs}
-          defaultColDef={defaultColDef}
-          onCellValueChanged={onCellValueChanged}
-        />
-      </div>
+      <Spin tip="Loading" size="large" spinning={isLoading}>
+        <div
+          className={"ag-theme-quartz"}
+          style={{ width: "100%", height: 700 }}
+        >
+          <AgGridReact
+            rowData={rowData}
+            columnDefs={colDefs}
+            defaultColDef={defaultColDef}
+            onCellValueChanged={onCellValueChanged}
+          />
+        </div>
+      </Spin>
     </div>
   );
 };

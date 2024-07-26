@@ -40,8 +40,8 @@ const Main = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const dataResource: DataResource = new DataResource(
-    // "https://panacea-one.vercel.app/costos"
-    "http://localhost:8000/costos"
+    "https://panacea-one.vercel.app/costos"
+    // "http://localhost:8000/costos"
   );
 
   const items = [
