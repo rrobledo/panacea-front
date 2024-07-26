@@ -56,6 +56,11 @@ const Main = () => {
       label: <Link to="/productos">Productos</Link>,
     },
     {
+      key: "/programacion",
+      icon: <GroupOutlined />,
+      label: <Link to="/programacion">Programacion</Link>,
+    },
+    {
       key: "reportes",
       label: "Reportes",
       icon: <FundOutlined />,
@@ -69,11 +74,6 @@ const Main = () => {
           key: "/planning_2024",
           icon: <GroupOutlined />,
           label: <Link to="/planning_2024">Planning 2024</Link>,
-        },
-        {
-          key: "/programacion",
-          icon: <GroupOutlined />,
-          label: <Link to="/programacion">Programacion</Link>,
         },
       ],
     },
