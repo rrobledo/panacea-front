@@ -100,6 +100,11 @@ function Planning2024(props: any) {
       dataIndex: "agosto",
       key: "agosto",
     },
+    {
+      title: "Agosto Corr.",
+      dataIndex: "agosto_corregido",
+      key: "agosto_corregido",
+    },
     // {
     //   title: "Septiembre",
     //   dataIndex: "septiembre",
