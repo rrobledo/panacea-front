@@ -31,6 +31,9 @@ import CostosMateriaPrima from "../reportes/costos/costosMateriaPrima";
 import CostosMateriaPrimaView from "../reportes/costos/costosMateriaPrimaView";
 import Planning2024 from "../reportes/costos/planning2024";
 import Programacion from "../reportes/costos/programacion";
+import Remitos from "../cruds/remitos/remitos";
+import RemitosEdit from "../cruds/remitos/remitosEdit";
+import RemitosCreate from "../cruds/remitos/remitosCreate";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -45,6 +48,11 @@ const Main = () => {
   );
 
   const items = [
+    {
+      key: "/remitos",
+      icon: <FormOutlined />,
+      label: <Link to="/remitos">Remitos</Link>,
+    },
     {
       key: "/insumos",
       icon: <FormOutlined />,
@@ -220,6 +228,28 @@ const Main = () => {
                   }}
                 >
                   <Routes>
+                    {/* REMITOS */}
+                    <Route
+                      key="/remitos"
+                      path="/remitos"
+                      element={<Remitos ds={dataResource} resource="remitos" />}
+                    />
+                    <Route
+                      key="/remitos/edit/:id"
+                      path="/remitos/edit/:id"
+                      element={
+                        <RemitosEdit ds={dataResource} resource="remitos" />
+                      }
+                    />
+                    <Route
+                      key="/remitos/create"
+                      path="/remitos/create"
+                      element={
+                        <RemitosCreate ds={dataResource} resource="remitos" />
+                      }
+                    />
+
+                    {/* INSUMOS */}
                     <Route
                       key="/"
                       path="/"

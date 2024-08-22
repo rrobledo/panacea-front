@@ -23,21 +23,21 @@ function Planning2024(props: any) {
           field: "enero_plan",
         },
         {
-          headerName: "Real",
-          field: "enero_real",
+          headerName: "Venta",
+          field: "enero_venta",
         },
       ],
     },
     {
-      headerName: "Febero",
+      headerName: "Febrero",
       children: [
         {
           headerName: "Plan",
           field: "febrero",
         },
         {
-          headerName: "Real",
-          field: "febrero_real",
+          headerName: "Venta",
+          field: "febrero_venta",
         },
       ],
     },
@@ -49,8 +49,8 @@ function Planning2024(props: any) {
           field: "marzo",
         },
         {
-          headerName: "Real",
-          field: "marzo_real",
+          headerName: "Venta",
+          field: "marzo_venta",
         },
       ],
     },
@@ -62,8 +62,8 @@ function Planning2024(props: any) {
           field: "abril",
         },
         {
-          headerName: "Real",
-          field: "abril_real",
+          headerName: "Venta",
+          field: "abril_venta",
         },
       ],
     },
@@ -79,8 +79,12 @@ function Planning2024(props: any) {
           field: "mayo_corregido",
         },
         {
-          headerName: "Real",
-          field: "mayo_real",
+          headerName: "Prod",
+          field: "mayo_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "mayo_venta",
         },
       ],
     },
@@ -96,8 +100,12 @@ function Planning2024(props: any) {
           field: "junio_corregido",
         },
         {
-          headerName: "Real",
-          field: "junio_real",
+          headerName: "Prod",
+          field: "junio_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "junio_venta",
         },
       ],
     },
@@ -113,8 +121,12 @@ function Planning2024(props: any) {
           field: "julio_corregido",
         },
         {
-          headerName: "Real",
-          field: "julio_real",
+          headerName: "Prod",
+          field: "julio_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "julio_venta",
         },
       ],
     },
@@ -130,8 +142,12 @@ function Planning2024(props: any) {
           field: "agosto_corregido",
         },
         {
-          headerName: "Real",
-          field: "agosto_real",
+          headerName: "Prod",
+          field: "agosto_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "agosto_venta",
         },
       ],
     },
@@ -152,8 +168,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Enero Real",
-      dataIndex: "enero_real",
-      key: "enero_real",
+      dataIndex: "enero_venta",
+      key: "enero_venta",
     },
     {
       title: " Febrero",
@@ -162,8 +178,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Febrero Real",
-      dataIndex: "febrero_real",
-      key: "febrero_real",
+      dataIndex: "febrero_venta",
+      key: "febrero_venta",
     },
     {
       title: "Marzo",
@@ -172,8 +188,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Marzo Real",
-      dataIndex: "marzo_real",
-      key: "marzo_real",
+      dataIndex: "marzo_venta",
+      key: "marzo_venta",
     },
     {
       title: "Abril",
@@ -182,8 +198,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Abril Real",
-      dataIndex: "abril_real",
-      key: "abril_real",
+      dataIndex: "abril_venta",
+      key: "abril_venta",
     },
     {
       title: "Mayo",
@@ -197,8 +213,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Mayo Real",
-      dataIndex: "mayo_real",
-      key: "mayo_real",
+      dataIndex: "mayo_venta",
+      key: "mayo_venta",
     },
     {
       title: "Junio",
@@ -212,8 +228,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Junio Real",
-      dataIndex: "junio_real",
-      key: "junio_real",
+      dataIndex: "junio_venta",
+      key: "junio_venta",
     },
     {
       title: "Julio",
@@ -227,8 +243,8 @@ function Planning2024(props: any) {
     },
     {
       title: "Julio Real",
-      dataIndex: "julio_real",
-      key: "julio_real",
+      dataIndex: "julio_venta",
+      key: "julio_venta",
     },
     {
       title: "Agosto",

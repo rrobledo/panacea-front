@@ -29,6 +29,7 @@ function DataCreate(props: any) {
   let resourceParentParam = useLocation().state.resourceParent;
   const resourceParent =
     resourceParentParam != undefined ? `${resourceParentParam}/` : "";
+  const defaultValues = props.defaultValues;
 
   if (props.form != undefined) {
     form = props.form;
@@ -36,6 +37,7 @@ function DataCreate(props: any) {
 
   const onsubmit = (values: any) => {
     setIsLoading(true);
+    console.log(values);
     dataSource
       .post(`${resourceParentParam}${props.resource}`, values)
       .then((res: any) => {
@@ -50,6 +52,12 @@ function DataCreate(props: any) {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (defaultValues != undefined) {
+      form.setFieldsValue(defaultValues);
+    }
+  }, []);
 
   if (isLoading) {
     return (

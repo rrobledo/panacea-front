@@ -4,6 +4,7 @@ import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { Form, Modal, Button, Input, Row, Col, Spin } from "antd";
+import { withDefaultProps } from "with-default-props";
 
 interface IRow {
   nombre: string;
@@ -112,11 +113,22 @@ function DataListSearch(props: any) {
   );
 }
 
-function InputListSearch(props: any) {
+type Props = {
+  value: any;
+  onChange: any;
+  ds: any;
+  resource: any;
+  targetInput: any;
+  targetInputName: any;
+  searchFieldName: any;
+};
+
+function InputListSearchComponent(props: Props) {
   const form = Form.useFormInstance();
   const refInputHiddenData = useRef<any>(null);
   const refInputData = useRef<any>(null);
   const targetInput = props.targetInput;
+  const targetInputName = props.targetInputName;
   const resource = props.resource;
 
   const searchData = (id: any) => {
@@ -133,7 +145,7 @@ function InputListSearch(props: any) {
         />
       ),
       onOk() {
-        let data = `{"${targetInput}" : "${refInputHiddenData.current.value}"}`;
+        let data = `{"${targetInput}" : "${refInputHiddenData.current.value}", "${targetInputName}" : "${refInputData.current.value}"}`;
         form.setFieldsValue(JSON.parse(data));
       },
       onCancel() {},
@@ -164,8 +176,21 @@ function InputListSearch(props: any) {
       <Form.Item name={targetInput} hidden={true}>
         <Input readOnly={true} />
       </Form.Item>
+      <Form.Item name={targetInputName} hidden={true}>
+        <Input readOnly={true} />
+      </Form.Item>
       <input readOnly={true} ref={refInputHiddenData} hidden={true} />
     </>
   );
 }
+
+const InputListSearch = withDefaultProps(InputListSearchComponent, {
+  value: null,
+  onChange: null,
+  ds: null,
+  resource: "/",
+  targetInput: "",
+  targetInputName: "",
+  searchFieldName: "",
+});
 export default InputListSearch;
