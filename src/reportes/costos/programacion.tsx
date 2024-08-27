@@ -11,6 +11,7 @@ const Programacion = (props: any) => {
   const defaultColDef: ColDef = { width: 70 };
   const [rowData, setRowData] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [mes, setMes] = useState(7);
   const [responsable, setResponsable] = useState("Todos");
   const [updates, setUpdate] = useState(new Map());
   const [openPrint, setOpenPrint] = useState(false);
@@ -31,9 +32,9 @@ const Programacion = (props: any) => {
     });
   };
 
-  const getList = (responsable: string = "Todos") => {
+  const getList = (mes: number = 7, responsable: string = "Todos") => {
     props.ds
-      .getList(`${props.resource}?responsable=${responsable}`)
+      .getList(`${props.resource}?mes=${mes}&responsable=${responsable}`)
       .then((res: any) => {
         setRowData(res.data);
         setIsLoading(false);
@@ -45,8 +46,8 @@ const Programacion = (props: any) => {
     params.api.setGridOption("columnDefs", colDefs);
   };
 
-  const getColumnDef = () => {
-    props.ds.getList(`programacion_columnas`).then((res: any) => {
+  const getColumnDef = (mes: number) => {
+    props.ds.getList(`programacion_columnas?mes=${mes}`).then((res: any) => {
       refGrid.current.api.setGridOption("columnDefs", res.data);
       setIsLoading(false);
     });
@@ -72,14 +73,21 @@ const Programacion = (props: any) => {
   };
 
   useEffect(() => {
-    getColumnDef();
+    getColumnDef(mes);
     getList();
   }, []);
 
   const onChangeResponsable = (value: any) => {
     setResponsable(value);
     setIsLoading(true);
-    getList(value);
+    getList(mes, value);
+  };
+
+  const onChangeMes = (value: any) => {
+    setMes(value);
+    setIsLoading(true);
+    getColumnDef(value);
+    getList(value, responsable);
   };
 
   const print = () => {
@@ -110,18 +118,19 @@ const Programacion = (props: any) => {
           />
         </div>
       </Modal>
-      <div
-        style={{
-          textAlign: "left",
-        }}
-      >
-        <Button type="primary" htmlType="submit" onClick={onsubmit}>
-          Actualizar
-        </Button>
-        <Button onClick={print}>Imprimir</Button>
-      </div>
       <div>
         <Row>
+          <Col span={5}>
+            <Form.Item label="Mes">
+              <Select defaultValue="7" onChange={onChangeMes}>
+                <Select.Option value="4">Abril</Select.Option>
+                <Select.Option value="5">Mayo</Select.Option>
+                <Select.Option value="6">Junio</Select.Option>
+                <Select.Option value="7">Julio</Select.Option>
+                <Select.Option value="8">Agosto</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
           <Col span={5}>
             <Form.Item label="Responsable">
               <Select defaultValue="Todos" onChange={onChangeResponsable}>
@@ -150,6 +159,16 @@ const Programacion = (props: any) => {
           />
         </div>
       </Spin>
+      <div
+        style={{
+          textAlign: "left",
+        }}
+      >
+        <Button type="primary" htmlType="submit" onClick={onsubmit}>
+          Actualizar
+        </Button>
+        <Button onClick={print}>Imprimir</Button>
+      </div>
     </div>
   );
 };
