@@ -152,10 +152,10 @@ const Programacion = (props: any) => {
           <AgGridReact
             ref={refGrid}
             rowData={rowData}
-            //columnDefs={colDefs}
             defaultColDef={defaultColDef}
             onCellValueChanged={onCellValueChanged}
             onGridReady={onGridReady}
+            suppressRowClickSelection={true}
           />
         </div>
       </Spin>

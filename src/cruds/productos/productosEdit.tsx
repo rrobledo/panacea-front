@@ -46,6 +46,19 @@ function ProductosEdit(props: any) {
         </Form.Item>
 
         <Form.Item
+          label="Id de referencia"
+          name="ref_id"
+          rules={[
+            {
+              required: true,
+              message: "Por Favor ingrese el valor!",
+            },
+          ]}
+        >
+          <InputNumber />
+        </Form.Item>
+
+        <Form.Item
           label="Utilidad"
           name="utilidad"
           rules={[
