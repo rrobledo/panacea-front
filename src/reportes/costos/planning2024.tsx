@@ -151,110 +151,26 @@ function Planning2024(props: any) {
         },
       ],
     },
-  ];
-
-  const columns1 = [
     {
-      title: "Producto",
-      dataIndex: "producto",
-      key: "producto",
-      fixed: "left",
-      with: 200,
-    },
-    {
-      title: "Enero Plan",
-      dataIndex: "enero_plan",
-      key: "enero_plan",
-    },
-    {
-      title: "Enero Real",
-      dataIndex: "enero_venta",
-      key: "enero_venta",
-    },
-    {
-      title: " Febrero",
-      dataIndex: "febrero",
-      key: "febrero",
-    },
-    {
-      title: "Febrero Real",
-      dataIndex: "febrero_venta",
-      key: "febrero_venta",
-    },
-    {
-      title: "Marzo",
-      dataIndex: "marzo",
-      key: "marzo",
-    },
-    {
-      title: "Marzo Real",
-      dataIndex: "marzo_venta",
-      key: "marzo_venta",
-    },
-    {
-      title: "Abril",
-      dataIndex: "abril",
-      key: "abril",
-    },
-    {
-      title: "Abril Real",
-      dataIndex: "abril_venta",
-      key: "abril_venta",
-    },
-    {
-      title: "Mayo",
-      dataIndex: "mayo",
-      key: "mayo",
-    },
-    {
-      title: "Mayo Corr",
-      dataIndex: "mayo_corregido",
-      key: "mayo_corregido",
-    },
-    {
-      title: "Mayo Real",
-      dataIndex: "mayo_venta",
-      key: "mayo_venta",
-    },
-    {
-      title: "Junio",
-      dataIndex: "junio",
-      key: "junio",
-    },
-    {
-      title: "Junio Corr",
-      dataIndex: "junio_corregido",
-      key: "junio_corregido",
-    },
-    {
-      title: "Junio Real",
-      dataIndex: "junio_venta",
-      key: "junio_venta",
-    },
-    {
-      title: "Julio",
-      dataIndex: "julio",
-      key: "julio",
-    },
-    {
-      title: "Julio Corr",
-      dataIndex: "julio_corregido",
-      key: "julio_corregido",
-    },
-    {
-      title: "Julio Real",
-      dataIndex: "julio_venta",
-      key: "julio_venta",
-    },
-    {
-      title: "Agosto",
-      dataIndex: "agosto",
-      key: "agosto",
-    },
-    {
-      title: "Agosto Corr.",
-      dataIndex: "agosto_corregido",
-      key: "agosto_corregido",
+      headerName: "Septiembre",
+      children: [
+        {
+          headerName: "Plan",
+          field: "septiembre",
+        },
+        {
+          headerName: "Corr.",
+          field: "septiembre_corregido",
+        },
+        {
+          headerName: "Prod",
+          field: "septiembre_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "septiembre_venta",
+        },
+      ],
     },
   ];
 

@@ -11,7 +11,7 @@ const Programacion = (props: any) => {
   const defaultColDef: ColDef = { width: 70 };
   const [rowData, setRowData] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [mes, setMes] = useState(7);
+  const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [responsable, setResponsable] = useState("Todos");
   const [updates, setUpdate] = useState(new Map());
   const [openPrint, setOpenPrint] = useState(false);
@@ -32,7 +32,7 @@ const Programacion = (props: any) => {
     });
   };
 
-  const getList = (mes: number = 7, responsable: string = "Todos") => {
+  const getList = (mes: number = 8, responsable: string = "Todos") => {
     props.ds
       .getList(`${props.resource}?mes=${mes}&responsable=${responsable}`)
       .then((res: any) => {
@@ -122,7 +122,10 @@ const Programacion = (props: any) => {
         <Row>
           <Col span={5}>
             <Form.Item label="Mes">
-              <Select defaultValue="7" onChange={onChangeMes}>
+              <Select
+                defaultValue={(new Date().getMonth() + 1).toString()}
+                onChange={onChangeMes}
+              >
                 <Select.Option value="4">Abril</Select.Option>
                 <Select.Option value="5">Mayo</Select.Option>
                 <Select.Option value="6">Junio</Select.Option>
@@ -155,7 +158,6 @@ const Programacion = (props: any) => {
             defaultColDef={defaultColDef}
             onCellValueChanged={onCellValueChanged}
             onGridReady={onGridReady}
-            suppressRowClickSelection={true}
           />
         </div>
       </Spin>
