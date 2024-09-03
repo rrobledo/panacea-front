@@ -131,6 +131,7 @@ const Programacion = (props: any) => {
                 <Select.Option value="6">Junio</Select.Option>
                 <Select.Option value="7">Julio</Select.Option>
                 <Select.Option value="8">Agosto</Select.Option>
+                <Select.Option value="9">Septiembre</Select.Option>
               </Select>
             </Form.Item>
           </Col>
