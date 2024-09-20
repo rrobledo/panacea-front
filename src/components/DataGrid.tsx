@@ -41,7 +41,7 @@ function DataGrid(props: any) {
     props.resourceParent != undefined ? `${props.resourceParent}/` : "";
 
   const [colDefs, setColDefs] = useState<ColGroupDef[]>(columns);
-  const defaultColDef: ColDef = { width: 70 };
+  const defaultColDef: ColDef = { width: 100 };
 
   const getList = () => {
     props.ds.getList(`${resourceParent}${props.resource}`).then((res: any) => {

@@ -34,6 +34,8 @@ import Programacion from "../reportes/costos/programacion";
 import Remitos from "../cruds/remitos/remitos";
 import RemitosEdit from "../cruds/remitos/remitosEdit";
 import RemitosCreate from "../cruds/remitos/remitosCreate";
+import MainDashboard from "../reportes/costos/mainDashboard";
+import Produccion from "../reportes/costos/produccion";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -48,6 +50,11 @@ const Main = () => {
   );
 
   const items = [
+    // {
+    //   key: "/main",
+    //   icon: <FormOutlined />,
+    //   label: <Link to="/main_dashboard">DashBoard</Link>,
+    // },
     {
       key: "/remitos",
       icon: <FormOutlined />,
@@ -82,6 +89,11 @@ const Main = () => {
           key: "/planning_2024",
           icon: <GroupOutlined />,
           label: <Link to="/planning_2024">Planning 2024</Link>,
+        },
+        {
+          key: "/produccion",
+          icon: <GroupOutlined />,
+          label: <Link to="/produccion">Produccion</Link>,
         },
       ],
     },
@@ -228,6 +240,19 @@ const Main = () => {
                   }}
                 >
                   <Routes>
+                    <Route
+                      key="/"
+                      path="/"
+                      // element={<MainDashboard ds={dataResource} />}
+                      element={<Produccion ds={dataResource} resource="" />}
+                    />
+
+                    <Route
+                      key="/main_dashboard"
+                      path="/main_dashboard"
+                      element={<MainDashboard ds={dataResource} />}
+                    />
+
                     {/* REMITOS */}
                     <Route
                       key="/remitos"
@@ -250,11 +275,6 @@ const Main = () => {
                     />
 
                     {/* INSUMOS */}
-                    <Route
-                      key="/"
-                      path="/"
-                      element={<Insumos ds={dataResource} resource="insumos" />}
-                    ></Route>
                     <Route
                       key="/insumos"
                       path="/insumos"
@@ -361,6 +381,11 @@ const Main = () => {
                           resource="programacion"
                         />
                       }
+                    />
+                    <Route
+                      key="/produccion"
+                      path="/produccion"
+                      element={<Produccion ds={dataResource} resource="" />}
                     />
                   </Routes>
                 </div>

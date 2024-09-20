@@ -8,7 +8,7 @@ import InputDataGrid from "../../components/InputDataGrid";
 import DataEdit from "../../components/DataEdit";
 
 function RemitosEdit(props: any) {
-  const dateFormat = "DD/MM/YYYY";
+  const dateFormat = "YYYY-MM-DD";
   const defaultValues = {
     fecha_entrega: dayjs(),
     vendedor: "Villa Allende",
@@ -56,7 +56,7 @@ function RemitosEdit(props: any) {
           searchFieldName="nombre"
         />
       </Form.Item>
-      {/* <Form.Item
+      <Form.Item
         label="Fecha Entrega"
         name="fecha_entrega"
         rules={[
@@ -67,7 +67,7 @@ function RemitosEdit(props: any) {
         ]}
       >
         <DatePicker format={dateFormat} />
-      </Form.Item> */}
+      </Form.Item>
       <Form.Item
         label="Observaciones"
         name="observaciones"

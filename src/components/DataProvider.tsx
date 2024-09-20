@@ -29,6 +29,10 @@ class DataResource {
   public delete(resource: string = "/", id: any, data: any) {
     return axios.delete(`${DataResource.endpoint}/${resource}/${id}`, data);
   }
+
+  public getUrl(url: string = "/") {
+    return axios.get(url);
+  }
 }
 
 export default DataResource;

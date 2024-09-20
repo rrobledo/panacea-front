@@ -74,7 +74,7 @@ const Programacion = (props: any) => {
 
   useEffect(() => {
     getColumnDef(mes);
-    getList();
+    getList(mes, responsable);
   }, []);
 
   const onChangeResponsable = (value: any) => {

@@ -123,13 +123,25 @@ type Props = {
   searchFieldName: any;
 };
 
-function InputListSearchComponent(props: Props) {
+function InputListSearchComponent({
+  value,
+  onChange,
+  ds,
+  resource,
+  targetInput,
+  targetInputName,
+  searchFieldName,
+}: Props) {
   const form = Form.useFormInstance();
   const refInputHiddenData = useRef<any>(null);
   const refInputData = useRef<any>(null);
-  const targetInput = props.targetInput;
-  const targetInputName = props.targetInputName;
-  const resource = props.resource;
+
+  const getLabel = () => {
+    ds.getUrl(value).then((res: any) => {
+      console.log(res.data);
+      refInputData.current.value = res.data.nombre;
+    });
+  };
 
   const searchData = (id: any) => {
     Modal.confirm({
@@ -137,7 +149,7 @@ function InputListSearchComponent(props: Props) {
       autoFocusButton: null,
       content: (
         <DataListSearch
-          ds={props.ds}
+          ds={ds}
           refForm={form}
           refInputData={refInputData}
           refInputHiddenData={refInputHiddenData}
@@ -151,6 +163,10 @@ function InputListSearchComponent(props: Props) {
       onCancel() {},
     });
   };
+
+  useEffect(() => {
+    getLabel();
+  }, []);
 
   return (
     <>

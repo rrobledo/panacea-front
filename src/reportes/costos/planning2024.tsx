@@ -9,7 +9,7 @@ function Planning2024(props: any) {
       children: [
         {
           field: "producto",
-          width: 200,
+          width: 250,
           headerName: "Producto",
           pinned: "left",
         },
