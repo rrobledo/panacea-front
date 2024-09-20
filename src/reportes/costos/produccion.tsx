@@ -11,9 +11,9 @@ const Produccion = (props: any) => {
   const defaultColDef: ColDef = { width: 100 };
   const [dataByCategory, setDataByCategory] = useState<[]>([]);
   const [dataByProductos, setDataByProductos] = useState<[]>([]);
+  const [dataByInsumos, setDataByInsumos] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [mes, setMes] = useState(new Date().getMonth() + 1);
-  const [responsable, setResponsable] = useState("Todos");
 
   const getByCategoria = (mes: any) => {
     props.ds
@@ -33,15 +33,27 @@ const Produccion = (props: any) => {
       });
   };
 
+  const getByInsumos = (mes: any) => {
+    props.ds
+      .getList(`${props.resource}get_insumos_by_month?mes=${mes}`)
+      .then((res: any) => {
+        setDataByInsumos(res.data);
+        setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
     getByCategoria(mes);
     getByProductos(mes);
+    getByInsumos(mes);
   }, []);
 
   const onChangeMes = (value: any) => {
     setMes(value);
     setIsLoading(true);
     getByCategoria(value);
+    getByProductos(value);
+    getByInsumos(value);
   };
 
   const columnsByCategoria = [
@@ -99,6 +111,28 @@ const Produccion = (props: any) => {
     },
   ];
 
+  const columnsByInsumos = [
+    {
+      headerName: "Insumos Previstos por semana",
+      children: [
+        {
+          field: "semana",
+          width: 250,
+          headerName: "Semana",
+        },
+        {
+          field: "insumo",
+          width: 250,
+          headerName: "Insumo",
+        },
+        {
+          headerName: "Cantidad",
+          field: "cantidad",
+        },
+      ],
+    },
+  ];
+
   return (
     <div>
       <div>
@@ -143,6 +177,20 @@ const Produccion = (props: any) => {
                 rowData={dataByProductos}
                 defaultColDef={defaultColDef}
                 columnDefs={columnsByProductos}
+              />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={10}>
+            <div
+              className={"ag-theme-quartz"}
+              style={{ width: "99%", height: 700 }}
+            >
+              <AgGridReact
+                rowData={dataByInsumos}
+                defaultColDef={defaultColDef}
+                columnDefs={columnsByInsumos}
               />
             </div>
           </Col>
