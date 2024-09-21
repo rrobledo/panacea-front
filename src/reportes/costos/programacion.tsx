@@ -5,6 +5,23 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Form, Row, Col, Select, Spin, Checkbox, Modal } from "antd";
 
+function findDifference(obj1: any, obj2: any) {
+  const diffKeys = [];
+  for (const key in obj1) {
+    if (!(key in obj2) || obj1[key] !== obj2[key]) {
+      diffKeys.push(key);
+    }
+  }
+  for (const key in obj2) {
+    if (!(key in obj1) || obj1[key] !== obj2[key]) {
+      if (!diffKeys.includes(key)) {
+        diffKeys.push(key);
+      }
+    }
+  }
+  return diffKeys;
+}
+
 // Create new GridExample component
 const Programacion = (props: any) => {
   const [colDefs, setColDefs] = useState<ColGroupDef[]>([]);
@@ -13,6 +30,7 @@ const Programacion = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [responsable, setResponsable] = useState("Todos");
+  const [semana, setSemana] = useState(0);
   const [updates, setUpdate] = useState(new Map());
   const [openPrint, setOpenPrint] = useState(false);
   const [gridApi, setGridApi] = useState();
@@ -23,6 +41,16 @@ const Programacion = (props: any) => {
     const key = data.id;
     delete data["producto"];
     delete data["producto_nombre"];
+    // console.log(
+    //   rowData.find((item: any) => {
+    //     return item.id == key;
+    //   })
+    // );
+    // let oldData = rowData.find((item: any) => {
+    //   return item.id == key;
+    // });
+    // console.log(data);
+    // console.log(findDifference(data, oldData));
     updates.set(key, data);
     event.colDef.cellStyle = { backgroundColor: "cyan" };
     event.api.refreshCells({
@@ -32,9 +60,15 @@ const Programacion = (props: any) => {
     });
   };
 
-  const getList = (mes: number = 8, responsable: string = "Todos") => {
+  const getList = (
+    mes: number = 8,
+    responsable: string = "Todos",
+    semana: number = 0
+  ) => {
     props.ds
-      .getList(`${props.resource}?mes=${mes}&responsable=${responsable}`)
+      .getList(
+        `${props.resource}?mes=${mes}&responsable=${responsable}&semana=${semana}`
+      )
       .then((res: any) => {
         setRowData(res.data);
         setIsLoading(false);
@@ -46,11 +80,13 @@ const Programacion = (props: any) => {
     params.api.setGridOption("columnDefs", colDefs);
   };
 
-  const getColumnDef = (mes: number) => {
-    props.ds.getList(`programacion_columnas?mes=${mes}`).then((res: any) => {
-      refGrid.current.api.setGridOption("columnDefs", res.data);
-      setIsLoading(false);
-    });
+  const getColumnDef = (mes: number, semana: number = 0) => {
+    props.ds
+      .getList(`programacion_columnas?mes=${mes}&semana=${semana}`)
+      .then((res: any) => {
+        refGrid.current.api.setGridOption("columnDefs", res.data);
+        setIsLoading(false);
+      });
   };
 
   const onsubmit = () => {
@@ -58,13 +94,14 @@ const Programacion = (props: any) => {
     let data: any[] = [];
     updates.forEach((value, key) => {
       data.push(value);
+      updates.delete(key);
     });
 
     props.ds
       .post(`${props.resource}`, data)
       .then((res: any) => {
         setIsLoading(false);
-        window.location.reload();
+        refresh();
       })
       .finally(() => {
         setIsLoading(false);
@@ -73,9 +110,14 @@ const Programacion = (props: any) => {
   };
 
   useEffect(() => {
-    getColumnDef(mes);
-    getList(mes, responsable);
+    getColumnDef(mes, semana);
+    getList(mes, responsable, semana);
   }, []);
+
+  const refresh = () => {
+    getColumnDef(mes, semana);
+    getList(mes, responsable, semana);
+  };
 
   const onChangeResponsable = (value: any) => {
     setResponsable(value);
@@ -86,8 +128,15 @@ const Programacion = (props: any) => {
   const onChangeMes = (value: any) => {
     setMes(value);
     setIsLoading(true);
-    getColumnDef(value);
-    getList(value, responsable);
+    getColumnDef(value, semana);
+    getList(value, responsable, semana);
+  };
+
+  const onChangeSemana = (value: any) => {
+    setSemana(value);
+    setIsLoading(true);
+    getColumnDef(mes, value);
+    getList(mes, responsable, value);
   };
 
   const print = () => {
@@ -143,6 +192,18 @@ const Programacion = (props: any) => {
                 <Select.Option value="Kevin">Kevin</Select.Option>
                 <Select.Option value="Marcos">Marcos</Select.Option>
                 <Select.Option value="Malena">Malena</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={5}>
+            <Form.Item label="Semana">
+              <Select defaultValue={0} onChange={onChangeSemana}>
+                <Select.Option value="0">Todas</Select.Option>
+                <Select.Option value="1">Semana 1</Select.Option>
+                <Select.Option value="2">Semana 2</Select.Option>
+                <Select.Option value="3">Semana 3</Select.Option>
+                <Select.Option value="4">Semana 4</Select.Option>
+                <Select.Option value="5">Semana 5</Select.Option>
               </Select>
             </Form.Item>
           </Col>
