@@ -32,7 +32,9 @@ export class ComponentToPrint extends React.PureComponent {
 // Create new GridExample component
 const Programacion = (props: any) => {
   const [colDefs, setColDefs] = useState<ColGroupDef[]>([]);
-  const defaultColDef: ColDef = { width: 70 };
+  const defaultColDef: ColDef = {
+    width: 70,
+  };
   const [rowData, setRowData] = useState<[]>([]);
   const [oldRowData, setOldRowData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
