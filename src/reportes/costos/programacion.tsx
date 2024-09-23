@@ -4,6 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Form, Row, Col, Select, Spin, Checkbox, Modal } from "antd";
+import ReactToPrint from "react-to-print";
 
 function findDifference(obj1: any, obj2: any) {
   const diffKeys = [];
@@ -22,11 +23,18 @@ function findDifference(obj1: any, obj2: any) {
   return diffKeys;
 }
 
+export class ComponentToPrint extends React.PureComponent {
+  render() {
+    return <div>My cool content here!</div>;
+  }
+}
+
 // Create new GridExample component
 const Programacion = (props: any) => {
   const [colDefs, setColDefs] = useState<ColGroupDef[]>([]);
   const defaultColDef: ColDef = { width: 70 };
   const [rowData, setRowData] = useState<[]>([]);
+  const [oldRowData, setOldRowData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [responsable, setResponsable] = useState("Todos");
@@ -41,16 +49,6 @@ const Programacion = (props: any) => {
     const key = data.id;
     delete data["producto"];
     delete data["producto_nombre"];
-    // console.log(
-    //   rowData.find((item: any) => {
-    //     return item.id == key;
-    //   })
-    // );
-    // let oldData = rowData.find((item: any) => {
-    //   return item.id == key;
-    // });
-    // console.log(data);
-    // console.log(findDifference(data, oldData));
     updates.set(key, data);
     event.colDef.cellStyle = { backgroundColor: "cyan" };
     event.api.refreshCells({
@@ -70,7 +68,12 @@ const Programacion = (props: any) => {
         `${props.resource}?mes=${mes}&responsable=${responsable}&semana=${semana}`
       )
       .then((res: any) => {
+        let od = [];
         setRowData(res.data);
+        for (let k in res.data) {
+          od.push({ ...res.data[k] });
+        }
+        setOldRowData(od);
         setIsLoading(false);
       });
   };
@@ -93,20 +96,31 @@ const Programacion = (props: any) => {
     setIsLoading(true);
     let data: any[] = [];
     updates.forEach((value, key) => {
-      data.push(value);
-      updates.delete(key);
+      let oldData = oldRowData.find((item: any) => {
+        return item.id == key;
+      });
+      if (oldData != null) {
+        for (let k in value) {
+          if (value.hasOwnProperty(k)) {
+            let v = value[k];
+            if (k != "id" && k != "responsable" && v == oldData[k]) {
+              delete value[k];
+            }
+          }
+        }
+        data.push(value);
+      }
     });
-
     props.ds
       .post(`${props.resource}`, data)
       .then((res: any) => {
         setIsLoading(false);
+        setUpdate(new Map());
         refresh();
       })
       .finally(() => {
         setIsLoading(false);
       });
-    setUpdate(new Map());
   };
 
   useEffect(() => {
@@ -144,6 +158,8 @@ const Programacion = (props: any) => {
   };
 
   // Container: Defines the grid's theme & dimensions.
+  const componentToPrintRef = useRef(null);
+
   return (
     <div>
       <Modal
@@ -155,15 +171,10 @@ const Programacion = (props: any) => {
         width={"100%"}
         height={"100%"}
       >
-        <div
-          className={"ag-theme-quartz"}
-          style={{ width: "100%", height: 1100 }}
-        >
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={colDefs}
-            defaultColDef={defaultColDef}
-            onCellValueChanged={onCellValueChanged}
+        <div>
+          <ReactToPrint
+            content={() => componentToPrintRef.current}
+            trigger={() => <Button>Imprimir</Button>}
           />
         </div>
       </Modal>
@@ -209,10 +220,30 @@ const Programacion = (props: any) => {
           </Col>
         </Row>
       </div>
+      <div
+        style={{
+          textAlign: "left",
+        }}
+      >
+        <Row>
+          <Col span={2}>
+            <Button type="primary" htmlType="submit" onClick={onsubmit}>
+              Actualizar
+            </Button>
+          </Col>
+          <Col>
+            <ReactToPrint
+              content={() => componentToPrintRef.current}
+              trigger={() => <Button>Imprimir</Button>}
+            />
+          </Col>
+        </Row>
+      </div>
       <Spin tip="Loading" size="large" spinning={isLoading}>
         <div
           className={"ag-theme-quartz"}
-          style={{ width: "100%", height: 700 }}
+          style={{ width: "100%", height: "100%" }}
+          ref={componentToPrintRef}
         >
           <AgGridReact
             ref={refGrid}
@@ -220,19 +251,13 @@ const Programacion = (props: any) => {
             defaultColDef={defaultColDef}
             onCellValueChanged={onCellValueChanged}
             onGridReady={onGridReady}
+            autoSizeStrategy={{
+              type: "fitGridWidth",
+            }}
+            domLayout="autoHeight"
           />
         </div>
       </Spin>
-      <div
-        style={{
-          textAlign: "left",
-        }}
-      >
-        <Button type="primary" htmlType="submit" onClick={onsubmit}>
-          Actualizar
-        </Button>
-        <Button onClick={print}>Imprimir</Button>
-      </div>
     </div>
   );
 };
