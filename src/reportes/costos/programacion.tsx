@@ -256,6 +256,9 @@ const Programacion = (props: any) => {
             defaultColDef={defaultColDef}
             onCellValueChanged={onCellValueChanged}
             onGridReady={onGridReady}
+            getRowHeight={(params: any) => {
+              return 25;
+            }}
             autoSizeStrategy={{
               type: "fitGridWidth",
             }}
