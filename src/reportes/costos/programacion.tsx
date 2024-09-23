@@ -108,6 +108,9 @@ const Programacion = (props: any) => {
             if (k != "id" && k != "responsable" && v == oldData[k]) {
               delete value[k];
             }
+            if (v == "") {
+              delete value[k];
+            }
           }
         }
         data.push(value);
@@ -117,11 +120,11 @@ const Programacion = (props: any) => {
       .post(`${props.resource}`, data)
       .then((res: any) => {
         setIsLoading(false);
-        setUpdate(new Map());
         refresh();
       })
       .finally(() => {
         setIsLoading(false);
+        setUpdate(new Map());
       });
   };
 
