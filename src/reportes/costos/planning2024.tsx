@@ -172,6 +172,27 @@ function Planning2024(props: any) {
         },
       ],
     },
+    {
+      headerName: "Octubre",
+      children: [
+        {
+          headerName: "Plan",
+          field: "octubre",
+        },
+        {
+          headerName: "Corr.",
+          field: "octubre_corregido",
+        },
+        {
+          headerName: "Prod",
+          field: "octubre_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "octubre_venta",
+        },
+      ],
+    },
   ];
 
   return (
