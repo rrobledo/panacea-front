@@ -36,6 +36,7 @@ import RemitosEdit from "../cruds/remitos/remitosEdit";
 import RemitosCreate from "../cruds/remitos/remitosCreate";
 import MainDashboard from "../reportes/costos/mainDashboard";
 import Produccion from "../reportes/costos/produccion";
+import Ventas from "../reportes/costos/ventas";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -94,6 +95,11 @@ const Main = () => {
           key: "/produccion",
           icon: <GroupOutlined />,
           label: <Link to="/produccion">Produccion</Link>,
+        },
+        {
+          key: "/ventas",
+          icon: <GroupOutlined />,
+          label: <Link to="/Ventas">Ventas</Link>,
         },
       ],
     },
@@ -386,6 +392,11 @@ const Main = () => {
                       key="/produccion"
                       path="/produccion"
                       element={<Produccion ds={dataResource} resource="" />}
+                    />
+                    <Route
+                      key="/ventas"
+                      path="/ventas"
+                      element={<Ventas ds={dataResource} resource="" />}
                     />
                   </Routes>
                 </div>

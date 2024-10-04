@@ -194,7 +194,7 @@ const Programacion = (props: any) => {
           </Col>
           <Col span={5}>
             <Form.Item label="Semana">
-              <Select defaultValue={0} onChange={onChangeSemana}>
+              <Select defaultValue={"Todas"} onChange={onChangeSemana}>
                 <Select.Option value="0">Todas</Select.Option>
                 <Select.Option value="1">Semana 1</Select.Option>
                 <Select.Option value="2">Semana 2</Select.Option>
