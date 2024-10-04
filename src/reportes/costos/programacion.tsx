@@ -6,23 +6,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Form, Row, Col, Select, Spin, Checkbox, Modal } from "antd";
 import ReactToPrint from "react-to-print";
 
-function findDifference(obj1: any, obj2: any) {
-  const diffKeys = [];
-  for (const key in obj1) {
-    if (!(key in obj2) || obj1[key] !== obj2[key]) {
-      diffKeys.push(key);
-    }
-  }
-  for (const key in obj2) {
-    if (!(key in obj1) || obj1[key] !== obj2[key]) {
-      if (!diffKeys.includes(key)) {
-        diffKeys.push(key);
-      }
-    }
-  }
-  return diffKeys;
-}
-
 export class ComponentToPrint extends React.PureComponent {
   render() {
     return <div>My cool content here!</div>;
@@ -106,9 +89,6 @@ const Programacion = (props: any) => {
           if (value.hasOwnProperty(k)) {
             let v = value[k];
             if (k != "id" && k != "responsable" && v == oldData[k]) {
-              delete value[k];
-            }
-            if (v == "") {
               delete value[k];
             }
           }
@@ -208,7 +188,7 @@ const Programacion = (props: any) => {
                 <Select.Option value="Dalma">Dalma</Select.Option>
                 <Select.Option value="Kevin">Kevin</Select.Option>
                 <Select.Option value="Marcos">Marcos</Select.Option>
-                <Select.Option value="Malena">Malena</Select.Option>
+                <Select.Option value="Oriana">Oriana</Select.Option>
               </Select>
             </Form.Item>
           </Col>
