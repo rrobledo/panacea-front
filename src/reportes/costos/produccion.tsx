@@ -10,7 +10,7 @@ import ReactToPrint from "react-to-print";
 // Create new GridExample component
 const Produccion = (props: any) => {
   const defaultColDef: ColDef = {
-    width: 100,
+    width: 90,
     cellStyle: { textAlign: "left" },
   };
   const [dataByCategory, setDataByCategory] = useState<[]>([]);
@@ -87,7 +87,7 @@ const Produccion = (props: any) => {
       children: [
         {
           field: "categoria",
-          width: 250,
+          width: 150,
           headerName: "Categoria",
         },
         {
@@ -99,8 +99,16 @@ const Produccion = (props: any) => {
           field: "producido",
         },
         {
-          headerName: "Porcentaje Ejecucion",
+          headerName: "Vendido",
+          field: "vendido",
+        },
+        {
+          headerName: "Prod %",
           field: "porcentaje_ejecutado",
+        },
+        {
+          headerName: "Vend %",
+          field: "porcentaje_vendido",
         },
       ],
     },
@@ -112,7 +120,7 @@ const Produccion = (props: any) => {
       children: [
         {
           field: "categoria",
-          width: 250,
+          width: 150,
           headerName: "Categoria",
         },
         {
@@ -129,8 +137,16 @@ const Produccion = (props: any) => {
           field: "producido",
         },
         {
-          headerName: "Porcentaje Ejecucion",
+          headerName: "Vendido",
+          field: "vendido",
+        },
+        {
+          headerName: "Prod %",
           field: "porcentaje_ejecutado",
+        },
+        {
+          headerName: "Vend %",
+          field: "porcentaje_vendido",
         },
       ],
     },
