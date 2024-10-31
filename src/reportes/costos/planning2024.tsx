@@ -193,6 +193,27 @@ function Planning2024(props: any) {
         },
       ],
     },
+    {
+      headerName: "Noviembre",
+      children: [
+        {
+          headerName: "Plan",
+          field: "noviembre",
+        },
+        {
+          headerName: "Corr.",
+          field: "noviembre_corregido",
+        },
+        {
+          headerName: "Prod",
+          field: "noviembre_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "noviembre_venta",
+        },
+      ],
+    },
   ];
 
   return (
