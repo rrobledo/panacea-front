@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { Form, Modal, Button, Input, Row, Col, Spin, InputNumber } from "antd";
-import InputListSearch from "./InputListSearch";
+import InputListSearch, { DataListSearch } from "./InputListSearch";
 import { withDefaultProps } from "with-default-props";
 
 type Props = {
@@ -25,6 +25,9 @@ function InputDataGridComponent({
   const [rowData, setRowData] = useState<any[]>(value != null ? value : []);
   const [modalForm] = Form.useForm();
   const [visible, setVisible] = useState(false);
+  const refInputHiddenData = useRef<any>(null);
+  const refInputData = useRef<any>(null);
+  const refGrid = useRef<AgGridReact>(null);
 
   const onStateUpdated = (event: any): void => {
     if (event.rowData != undefined && event.rowData.length > 0) {
@@ -47,52 +50,36 @@ function InputDataGridComponent({
       });
   };
 
+  const searchData = (id: any) => {
+    Modal.confirm({
+      title: "",
+      autoFocusButton: null,
+      content: (
+        <DataListSearch
+          ds={dataSource}
+          refInputData={refInputData}
+          refInputHiddenData={refInputHiddenData}
+          resource="productos"
+        />
+      ),
+      onOk() {
+        let aux = [...rowData];
+        aux.push({
+          producto: refInputHiddenData.current.value,
+          producto_nombre: refInputData.current.value,
+          cantidad: 1,
+        });
+        setRowData(aux);
+      },
+      onCancel() {},
+    });
+  };
+
   return (
     <>
-      <Modal
-        open={visible}
-        title="Agregar"
-        okText="Ok"
-        onCancel={() => {
-          setVisible(false);
-        }}
-        onOk={handleCreate}
-      >
-        <Form form={modalForm} layout="vertical">
-          <Form.Item
-            label="Producto"
-            name="producto"
-            rules={[
-              {
-                required: true,
-                message: "Por favor seleccione el producto",
-              },
-            ]}
-          >
-            <InputListSearch
-              ds={dataSource}
-              resource="productos"
-              targetInput="producto"
-              targetInputName="producto_nombre"
-              searchFieldName="nombre"
-            />
-          </Form.Item>
-          <Form.Item name="producto_name" label="producto_name" hidden={true}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="cantidad" label="Cantidad">
-            <InputNumber />
-          </Form.Item>
-        </Form>
-      </Modal>
       <Row>
-        <Col span={24}>
-          <Button
-            type="primary"
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
+        <Col span={12}>
+          <Button type="primary" onClick={searchData}>
             Agregar Producto
           </Button>
         </Col>
@@ -103,7 +90,10 @@ function InputDataGridComponent({
             className={"ag-theme-quartz"}
             style={{ height: 300, width: 1000 }}
           >
+            <input readOnly={true} ref={refInputData} hidden={true} />
+            <input readOnly={true} ref={refInputHiddenData} hidden={true} />
             <AgGridReact
+              ref={refGrid}
               rowData={rowData}
               columnDefs={colDefs}
               defaultColDef={defaultColDef}

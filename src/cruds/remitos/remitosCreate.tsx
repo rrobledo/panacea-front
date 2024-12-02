@@ -4,7 +4,7 @@ import InputListSearch from "../../components/InputListSearch";
 import dayjs from "dayjs";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
-import { ColDef } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 import InputDataGrid from "../../components/InputDataGrid";
 
 function RemitosCreate(props: any) {
@@ -29,6 +29,7 @@ function RemitosCreate(props: any) {
       field: "cantidad",
       width: 300,
       headerName: "cantidad",
+      editable: true,
     },
   ]);
   const defaultColDef: ColDef = { width: 70 };

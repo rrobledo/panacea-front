@@ -214,6 +214,27 @@ function Planning2024(props: any) {
         },
       ],
     },
+    {
+      headerName: "Diciembre",
+      children: [
+        {
+          headerName: "Plan",
+          field: "diciembre",
+        },
+        {
+          headerName: "Corr.",
+          field: "diciembre_corregido",
+        },
+        {
+          headerName: "Prod",
+          field: "diciembre_prod",
+        },
+        {
+          headerName: "Venta",
+          field: "diciembre_venta",
+        },
+      ],
+    },
   ];
 
   return (

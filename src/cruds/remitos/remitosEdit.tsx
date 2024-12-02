@@ -29,6 +29,7 @@ function RemitosEdit(props: any) {
       field: "cantidad",
       width: 300,
       headerName: "cantidad",
+      editable: true,
     },
   ]);
   const defaultColDef: ColDef = { width: 70 };
@@ -65,6 +66,8 @@ function RemitosEdit(props: any) {
             message: "Por Favor ingrese el valor!",
           },
         ]}
+        getValueProps={(value) => ({ value: value && dayjs(value) })}
+        normalize={(value) => value && `${dayjs(value).valueOf()}`}
       >
         <DatePicker format={dateFormat} />
       </Form.Item>

@@ -125,6 +125,8 @@ const Ventas = (props: any) => {
                 <Select.Option value="8">Agosto</Select.Option>
                 <Select.Option value="9">Septiembre</Select.Option>
                 <Select.Option value="10">Octubre</Select.Option>
+                <Select.Option value="11">Noviembre</Select.Option>
+                <Select.Option value="12">Diciembre</Select.Option>
               </Select>
             </Form.Item>
           </Col>

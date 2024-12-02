@@ -10,7 +10,7 @@ interface IRow {
   nombre: string;
 }
 
-function DataListSearch(props: any) {
+export function DataListSearch(props: any) {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState(null);
@@ -132,15 +132,15 @@ function InputListSearchComponent({
   targetInputName,
   searchFieldName,
 }: Props) {
-  const form = Form.useFormInstance();
   const refInputHiddenData = useRef<any>(null);
   const refInputData = useRef<any>(null);
 
   const getLabel = () => {
-    ds.getUrl(value).then((res: any) => {
-      console.log(res.data);
-      refInputData.current.value = res.data.nombre;
-    });
+    if (value != null) {
+      ds.getUrl(value).then((res: any) => {
+        refInputData.current.value = res.data.nombre;
+      });
+    }
   };
 
   const searchData = (id: any) => {
@@ -150,15 +150,13 @@ function InputListSearchComponent({
       content: (
         <DataListSearch
           ds={ds}
-          refForm={form}
           refInputData={refInputData}
           refInputHiddenData={refInputHiddenData}
           resource={resource}
         />
       ),
       onOk() {
-        let data = `{"${targetInput}" : "${refInputHiddenData.current.value}", "${targetInputName}" : "${refInputData.current.value}"}`;
-        form.setFieldsValue(JSON.parse(data));
+        onChange(refInputHiddenData.current.value);
       },
       onCancel() {},
     });
@@ -183,6 +181,7 @@ function InputListSearchComponent({
               background: "rgba(0, 0, 0, 0.04)",
             }}
             type="text"
+            value={value}
           />
         </Col>
         <Col span={4} style={{ display: "flex", justifyContent: "left" }}>
