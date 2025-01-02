@@ -37,6 +37,7 @@ import RemitosCreate from "../cruds/remitos/remitosCreate";
 import MainDashboard from "../reportes/costos/mainDashboard";
 import Produccion from "../reportes/costos/produccion";
 import Ventas from "../reportes/costos/ventas";
+import Planning from "../reportes/costos/planning";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -47,7 +48,7 @@ const Main = () => {
   } = theme.useToken();
   const dataResource: DataResource = new DataResource(
     "https://panacea-one.vercel.app/costos"
-    // "http://localhost:8000/costos"
+    //"http://localhost:8000/costos"
   );
 
   const items = [
@@ -90,6 +91,11 @@ const Main = () => {
           key: "/planning_2024",
           icon: <GroupOutlined />,
           label: <Link to="/planning_2024">Planning 2024</Link>,
+        },
+        {
+          key: "/planning",
+          icon: <GroupOutlined />,
+          label: <Link to="/planning">Planning</Link>,
         },
         {
           key: "/produccion",
@@ -376,6 +382,13 @@ const Main = () => {
                           ds={dataResource}
                           resource="planning_2024"
                         />
+                      }
+                    />
+                    <Route
+                      key="/planning"
+                      path="/planning"
+                      element={
+                        <Planning ds={dataResource} resource="planning" />
                       }
                     />
                     <Route
