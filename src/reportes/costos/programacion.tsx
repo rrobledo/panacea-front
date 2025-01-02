@@ -171,6 +171,9 @@ const Programacion = (props: any) => {
                 defaultValue={(new Date().getMonth() + 1).toString()}
                 onChange={onChangeMes}
               >
+                <Select.Option value="1">Enero</Select.Option>
+                <Select.Option value="2">Febrero</Select.Option>
+                <Select.Option value="3">Marzo</Select.Option>
                 <Select.Option value="4">Abril</Select.Option>
                 <Select.Option value="5">Mayo</Select.Option>
                 <Select.Option value="6">Junio</Select.Option>

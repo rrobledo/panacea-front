@@ -29,7 +29,6 @@ import ProductosEdit from "../cruds/productos/productosEdit";
 import ProductosCreate from "../cruds/productos/productosCreate";
 import CostosMateriaPrima from "../reportes/costos/costosMateriaPrima";
 import CostosMateriaPrimaView from "../reportes/costos/costosMateriaPrimaView";
-import Planning2024 from "../reportes/costos/planning2024";
 import Programacion from "../reportes/costos/programacion";
 import Remitos from "../cruds/remitos/remitos";
 import RemitosEdit from "../cruds/remitos/remitosEdit";
@@ -86,11 +85,6 @@ const Main = () => {
           key: "/costos_materia_prima",
           icon: <GroupOutlined />,
           label: <Link to="/costos_materia_prima">Costo Materia Prima</Link>,
-        },
-        {
-          key: "/planning_2024",
-          icon: <GroupOutlined />,
-          label: <Link to="/planning_2024">Planning 2024</Link>,
         },
         {
           key: "/planning",
@@ -371,16 +365,6 @@ const Main = () => {
                         <CostosMateriaPrimaView
                           ds={dataResource}
                           resource="costos_materia_prima"
-                        />
-                      }
-                    />
-                    <Route
-                      key="/planning_2024"
-                      path="/planning_2024"
-                      element={
-                        <Planning2024
-                          ds={dataResource}
-                          resource="planning_2024"
                         />
                       }
                     />
