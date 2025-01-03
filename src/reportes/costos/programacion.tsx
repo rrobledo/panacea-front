@@ -21,6 +21,7 @@ const Programacion = (props: any) => {
   const [rowData, setRowData] = useState<[]>([]);
   const [oldRowData, setOldRowData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [anio, setAnio] = useState(new Date().getFullYear());
   const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [responsable, setResponsable] = useState("Todos");
   const [semana, setSemana] = useState(0);
@@ -44,13 +45,14 @@ const Programacion = (props: any) => {
   };
 
   const getList = (
+    anio: number = 2025,
     mes: number = 8,
     responsable: string = "Todos",
     semana: number = 0
   ) => {
     props.ds
       .getList(
-        `${props.resource}?mes=${mes}&responsable=${responsable}&semana=${semana}`
+        `${props.resource}?anio=${anio}&mes=${mes}&responsable=${responsable}&semana=${semana}`
       )
       .then((res: any) => {
         let od = [];
@@ -68,9 +70,9 @@ const Programacion = (props: any) => {
     params.api.setGridOption("columnDefs", colDefs);
   };
 
-  const getColumnDef = (mes: number, semana: number = 0) => {
+  const getColumnDef = (anio: number, mes: number, semana: number = 0) => {
     props.ds
-      .getList(`programacion_columnas?mes=${mes}&semana=${semana}`)
+      .getList(`programacion_columnas?anio=${anio}&mes=${mes}&semana=${semana}`)
       .then((res: any) => {
         refGrid.current.api.setGridOption("columnDefs", res.data);
         setIsLoading(false);
@@ -109,13 +111,13 @@ const Programacion = (props: any) => {
   };
 
   useEffect(() => {
-    getColumnDef(mes, semana);
-    getList(mes, responsable, semana);
+    getColumnDef(anio, mes, semana);
+    getList(anio, mes, responsable, semana);
   }, []);
 
   const refresh = () => {
-    getColumnDef(mes, semana);
-    getList(mes, responsable, semana);
+    getColumnDef(anio, mes, semana);
+    getList(anio, mes, responsable, semana);
   };
 
   const onChangeResponsable = (value: any) => {
@@ -124,18 +126,25 @@ const Programacion = (props: any) => {
     getList(mes, value);
   };
 
+  const onChangeAnio = (value: any) => {
+    setAnio(value);
+    setIsLoading(true);
+    getColumnDef(value, mes, semana);
+    getList(value, mes, responsable, semana);
+  };
+
   const onChangeMes = (value: any) => {
     setMes(value);
     setIsLoading(true);
-    getColumnDef(value, semana);
-    getList(value, responsable, semana);
+    getColumnDef(anio, value, semana);
+    getList(anio, value, responsable, semana);
   };
 
   const onChangeSemana = (value: any) => {
     setSemana(value);
     setIsLoading(true);
-    getColumnDef(mes, value);
-    getList(mes, responsable, value);
+    getColumnDef(anio, mes, value);
+    getList(anio, mes, responsable, value);
   };
 
   const print = () => {
@@ -165,6 +174,17 @@ const Programacion = (props: any) => {
       </Modal>
       <div>
         <Row>
+          <Col span={5}>
+            <Form.Item label="Anio">
+              <Select
+                defaultValue={new Date().getFullYear().toString()}
+                onChange={onChangeAnio}
+              >
+                <Select.Option value="2024">2024</Select.Option>
+                <Select.Option value="2025">2025</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
           <Col span={5}>
             <Form.Item label="Mes">
               <Select

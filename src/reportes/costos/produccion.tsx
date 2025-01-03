@@ -18,33 +18,38 @@ const Produccion = (props: any) => {
   const [dataByInsumos, setDataByInsumos] = useState<[]>([]);
   const [dataByInsumosMensual, setDataByInsumosMensual] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [anio, setAnio] = useState(new Date().getFullYear());
   const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [semana, setSemana] = useState(0);
   const printRefInsumosMensual = useRef(null);
   const printRefInsumos = useRef(null);
 
-  const getByCategoria = (mes: any) => {
+  const getByCategoria = (anio: number = 2025, mes: any) => {
     props.ds
-      .getList(`${props.resource}get_produccion_by_category?mes=${mes}`)
+      .getList(
+        `${props.resource}get_produccion_by_category?anio=${anio}&mes=${mes}`
+      )
       .then((res: any) => {
         setDataByCategory(res.data);
         setIsLoading(false);
       });
   };
 
-  const getByProductos = (mes: any) => {
+  const getByProductos = (anio: number = 2025, mes: any) => {
     props.ds
-      .getList(`${props.resource}get_produccion_by_productos?mes=${mes}`)
+      .getList(
+        `${props.resource}get_produccion_by_productos?anio=${anio}&mes=${mes}`
+      )
       .then((res: any) => {
         setDataByProductos(res.data);
         setIsLoading(false);
       });
   };
 
-  const getByInsumos = (mes: any, semana: any) => {
+  const getByInsumos = (anio: number = 2025, mes: any, semana: any) => {
     props.ds
       .getList(
-        `${props.resource}get_insumos_by_month?mes=${mes}&semana=${semana}`
+        `${props.resource}get_insumos_by_month?anio=${anio}&mes=${mes}&semana=${semana}`
       )
       .then((res: any) => {
         setDataByInsumos(res.data);
@@ -52,9 +57,11 @@ const Produccion = (props: any) => {
       });
   };
 
-  const getByInsumosMensual = (mes: any) => {
+  const getByInsumosMensual = (anio: number = 2025, mes: any) => {
     props.ds
-      .getList(`${props.resource}get_insumos_by_month?mes=${mes}&by_week=false`)
+      .getList(
+        `${props.resource}get_insumos_by_month?anio=${anio}&mes=${mes}&by_week=false`
+      )
       .then((res: any) => {
         setDataByInsumosMensual(res.data);
         setIsLoading(false);
@@ -62,23 +69,32 @@ const Produccion = (props: any) => {
   };
 
   useEffect(() => {
-    getByCategoria(mes);
-    getByProductos(mes);
-    getByInsumos(mes, semana);
-    getByInsumosMensual(mes);
+    getByCategoria(anio, mes);
+    getByProductos(anio, mes);
+    getByInsumos(anio, mes, semana);
+    getByInsumosMensual(anio, mes);
   }, []);
+
+  const onChangeAnio = (value: any) => {
+    setAnio(value);
+    setIsLoading(true);
+    getByCategoria(value, mes);
+    getByProductos(value, mes);
+    getByInsumos(value, mes, semana);
+    getByInsumosMensual(value, mes);
+  };
 
   const onChangeMes = (value: any) => {
     setMes(value);
     setIsLoading(true);
-    getByCategoria(value);
-    getByProductos(value);
-    getByInsumos(value, semana);
-    getByInsumosMensual(value);
+    getByCategoria(anio, value);
+    getByProductos(anio, value);
+    getByInsumos(anio, value, semana);
+    getByInsumosMensual(anio, value);
   };
 
   const onChangeSemana = (value: any) => {
-    getByInsumos(mes, value);
+    getByInsumos(anio, mes, value);
   };
 
   const columnsByCategoria = [
@@ -237,11 +253,24 @@ const Produccion = (props: any) => {
       <div>
         <Row>
           <Col span={5}>
+            <Form.Item label="Anio">
+              <Select
+                defaultValue={new Date().getFullYear().toString()}
+                onChange={onChangeAnio}
+              >
+                <Select.Option value="2024">2024</Select.Option>
+                <Select.Option value="2025">2025</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={5}>
             <Form.Item label="Mes">
               <Select
                 defaultValue={(new Date().getMonth() + 1).toString()}
                 onChange={onChangeMes}
               >
+                <Select.Option value="1">Enero</Select.Option>
+                <Select.Option value="2">Febrero</Select.Option>
                 <Select.Option value="4">Abril</Select.Option>
                 <Select.Option value="5">Mayo</Select.Option>
                 <Select.Option value="6">Junio</Select.Option>
