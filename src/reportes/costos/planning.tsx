@@ -97,11 +97,13 @@ const Planning = (props: any) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getColumnDef(anio);
     getList(anio);
   }, []);
 
   const refresh = () => {
+    setIsLoading(true);
     getColumnDef(anio);
     getList(anio);
   };

@@ -123,7 +123,7 @@ const Programacion = (props: any) => {
   const onChangeResponsable = (value: any) => {
     setResponsable(value);
     setIsLoading(true);
-    getList(mes, value);
+    getList(anio, mes, value, semana);
   };
 
   const onChangeAnio = (value: any) => {
