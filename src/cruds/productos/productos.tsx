@@ -61,6 +61,9 @@ function Productos(props: any) {
       title: "Habilitado",
       dataIndex: "habilitado",
       key: "habilitado",
+      render: (_: any, record: any) => (
+        <Space size="middle">{record.habilitado ? "✅" : ""}</Space>
+      ),
     },
   ];
 
