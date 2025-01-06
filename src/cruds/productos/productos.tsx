@@ -23,12 +23,17 @@ function Productos(props: any) {
       key: "nombre",
     },
     {
+      title: "Categoria",
+      dataIndex: "categoria",
+      key: "categoria",
+    },
+    {
       title: "Referencia",
       dataIndex: "ref_id",
       key: "ref_id",
     },
     {
-      title: "Utiliad",
+      title: "Utilidad",
       dataIndex: "utilidad",
       key: "utilidad",
     },
@@ -51,6 +56,11 @@ function Productos(props: any) {
       title: "Tiempo de Produccion",
       dataIndex: "tiempo_produccion",
       key: "tiempo_produccion",
+    },
+    {
+      title: "Habilitado",
+      dataIndex: "habilitado",
+      key: "habilitado",
     },
   ];
 

@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, InputNumber, Select, Switch } from "antd";
 import DataEdit from "../../components/DataEdit";
 import CostosDetail from "./costosdetail/costosDetail";
 import { useParams } from "react-router-dom";
@@ -32,6 +32,26 @@ function ProductosEdit(props: any) {
         >
           <Input />
         </Form.Item>
+
+        <Form.Item label="Categoria" name="categoria">
+          <Select>
+            <Select.Option value="ALFAJORES">ALFAJORES</Select.Option>
+            <Select.Option value="BOLLERIA">BOLLERIA</Select.Option>
+            <Select.Option value="BUDINES">BUDINES</Select.Option>
+            <Select.Option value="CUADRADOS">CUADRADOS</Select.Option>
+            <Select.Option value="FACTURAS">FACTURAS</Select.Option>
+            <Select.Option value="GALLETAS">GALLETAS</Select.Option>
+            <Select.Option value="PANADERIA">PANADERIA</Select.Option>
+            <Select.Option value="PASTAS">PASTAS</Select.Option>
+            <Select.Option value="PASTELERIA">PASTELERIA</Select.Option>
+            <Select.Option value="PIZZAS">PIZZAS</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Habilitado" name="habilitado">
+          <Switch />
+        </Form.Item>
+
         <Form.Item
           label="Precio"
           name="precio_actual"
