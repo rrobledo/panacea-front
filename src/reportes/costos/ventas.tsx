@@ -14,15 +14,16 @@ const Ventas = (props: any) => {
   };
   const [dataByCliente, setDataByCliente] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [anio, setAnio] = useState(new Date().getFullYear());
   const [mes, setMes] = useState(new Date().getMonth() + 1);
   const [cliente, setCliente] = useState("Todos");
   const [semana, setSemana] = useState(0);
   const printRefByCliente = useRef(null);
 
-  const getVentaPorCliente = (mes: any, cliente: any) => {
+  const getVentaPorCliente = (anio: number, mes: any, cliente: any) => {
     props.ds
       .getList(
-        `${props.resource}get_ventas_por_cliente?mes=${mes}&cliente=${cliente}`
+        `${props.resource}get_ventas_por_cliente?anio=${anio}&mes=${mes}&cliente=${cliente}`
       )
       .then((res: any) => {
         setDataByCliente(res.data);
@@ -31,19 +32,25 @@ const Ventas = (props: any) => {
   };
 
   useEffect(() => {
-    getVentaPorCliente(mes, cliente);
+    getVentaPorCliente(anio, mes, cliente);
   }, []);
+
+  const onChangeAnio = (value: any) => {
+    setAnio(value);
+    setIsLoading(true);
+    getVentaPorCliente(value, mes, cliente);
+  };
 
   const onChangeMes = (value: any) => {
     setMes(value);
     setIsLoading(true);
-    getVentaPorCliente(value, cliente);
+    getVentaPorCliente(anio, value, cliente);
   };
 
   const onChangeCliente = (value: any) => {
     setCliente(value);
     setIsLoading(true);
-    getVentaPorCliente(mes, value);
+    getVentaPorCliente(anio, mes, value);
   };
 
   const columnsByCliente = [
@@ -108,6 +115,18 @@ const Ventas = (props: any) => {
     <div>
       <div>
         <Row>
+          <Col span={5}>
+            <Form.Item label="Anio">
+              <Select
+                defaultValue={new Date().getFullYear().toString()}
+                onChange={onChangeAnio}
+              >
+                <Select.Option value="2024">2024</Select.Option>
+                <Select.Option value="2025">2025</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+
           <Col span={5}>
             <Form.Item label="Mes">
               <Select
