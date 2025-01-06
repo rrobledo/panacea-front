@@ -210,9 +210,10 @@ const Programacion = (props: any) => {
             <Form.Item label="Responsable">
               <Select defaultValue="Todos" onChange={onChangeResponsable}>
                 <Select.Option value="Todos">Todos</Select.Option>
-                <Select.Option value="Dalma">Dalma</Select.Option>
                 <Select.Option value="Kevin">Kevin</Select.Option>
                 <Select.Option value="Marcos">Marcos</Select.Option>
+                <Select.Option value="Fran">Fran</Select.Option>
+                <Select.Option value="Joaquin">Joaquin</Select.Option>
                 <Select.Option value="Oriana">Oriana</Select.Option>
               </Select>
             </Form.Item>
