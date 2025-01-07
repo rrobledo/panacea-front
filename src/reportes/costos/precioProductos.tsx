@@ -107,23 +107,55 @@ function PrecioProductos(props: any) {
       },
     },
     {
-      title: "Utilidad VA",
-      dataIndex: "porcentaje_va",
-      key: "porcentaje_va",
+      title: "Ganancia VA",
+      dataIndex: "ganancia_va",
+      key: "ganancia_va",
       width: "10%",
       render: (data: any) => {
-        return <div style={{ textAlign: "right" }}>{`${data}%`}</div>;
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
       },
     },
     {
-      title: "Utilidad CP",
-      dataIndex: "porcentaje_cp",
-      key: "porcentaje_cp",
+      title: "Ganancia CP",
+      dataIndex: "ganancia_cp",
+      key: "ganancia_cp",
       width: "10%",
       render: (data: any) => {
-        return <div style={{ textAlign: "right" }}>{`${data}%`}</div>;
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
       },
     },
+    // {
+    //   title: "Utilidad VA",
+    //   dataIndex: "porcentaje_va",
+    //   key: "porcentaje_va",
+    //   width: "10%",
+    //   render: (data: any) => {
+    //     return <div style={{ textAlign: "right" }}>{`${data}%`}</div>;
+    //   },
+    // },
+    // {
+    //   title: "Utilidad CP",
+    //   dataIndex: "porcentaje_cp",
+    //   key: "porcentaje_cp",
+    //   width: "10%",
+    //   render: (data: any) => {
+    //     return <div style={{ textAlign: "right" }}>{`${data}%`}</div>;
+    //   },
+    // },
   ];
 
   return (
