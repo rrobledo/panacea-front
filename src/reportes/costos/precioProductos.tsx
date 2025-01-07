@@ -138,6 +138,38 @@ function PrecioProductos(props: any) {
         );
       },
     },
+    {
+      title: "Plan",
+      dataIndex: "plan",
+      key: "plan",
+      width: "10%",
+      render: (data: any) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Ganancia Fab",
+      dataIndex: "ganancia_fab",
+      key: "ganancia_fab",
+      width: "10%",
+      render: (data: any) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
+      },
+    },
     // {
     //   title: "Utilidad VA",
     //   dataIndex: "porcentaje_va",
