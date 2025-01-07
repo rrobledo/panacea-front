@@ -37,6 +37,7 @@ import MainDashboard from "../reportes/costos/mainDashboard";
 import Produccion from "../reportes/costos/produccion";
 import Ventas from "../reportes/costos/ventas";
 import Planning from "../reportes/costos/planning";
+import PrecioProductos from "../reportes/costos/precioProductos";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -100,6 +101,11 @@ const Main = () => {
           key: "/ventas",
           icon: <GroupOutlined />,
           label: <Link to="/Ventas">Ventas</Link>,
+        },
+        {
+          key: "/precioproductos",
+          icon: <GroupOutlined />,
+          label: <Link to="/precioproductos">Precio Productos</Link>,
         },
       ],
     },
@@ -394,6 +400,26 @@ const Main = () => {
                       key="/ventas"
                       path="/ventas"
                       element={<Ventas ds={dataResource} resource="" />}
+                    />
+                    <Route
+                      key="/precioproductos"
+                      path="/precioproductos"
+                      element={
+                        <PrecioProductos
+                          ds={dataResource}
+                          resource="precio_productos"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/precio_productos/view/:id"
+                      path="/precio_productos/view/:id"
+                      element={
+                        <CostosMateriaPrimaView
+                          ds={dataResource}
+                          resource="costos_materia_prima"
+                        />
+                      }
                     />
                   </Routes>
                 </div>
