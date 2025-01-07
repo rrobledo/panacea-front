@@ -143,16 +143,6 @@ function PrecioProductos(props: any) {
       dataIndex: "plan",
       key: "plan",
       width: "10%",
-      render: (data: any) => {
-        return (
-          <div style={{ textAlign: "right" }}>
-            {data.toLocaleString("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            })}
-          </div>
-        );
-      },
     },
     {
       title: "Ganancia Fab",
