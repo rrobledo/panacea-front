@@ -53,6 +53,19 @@ function ProductosCreate(props: any) {
         </Form.Item>
 
         <Form.Item
+          label="Prioridad"
+          name="prioridad"
+          rules={[
+            {
+              required: true,
+              message: "Por Favor ingrese el valor!",
+            },
+          ]}
+        >
+          <InputNumber />
+        </Form.Item>
+
+        <Form.Item
           label="Precio"
           name="precio_actual"
           rules={[

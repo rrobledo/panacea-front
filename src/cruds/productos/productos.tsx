@@ -65,6 +65,11 @@ function Productos(props: any) {
         <Space size="middle">{record.habilitado ? "✅" : ""}</Space>
       ),
     },
+    {
+      title: "Prioridad",
+      dataIndex: "prioridad",
+      key: "prioridad",
+    },
   ];
 
   return (
