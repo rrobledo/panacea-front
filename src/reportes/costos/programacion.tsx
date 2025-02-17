@@ -212,11 +212,11 @@ const Programacion = (props: any) => {
                 <Select.Option value="Todos">Todos</Select.Option>
                 <Select.Option value="Kevin">Kevin</Select.Option>
                 <Select.Option value="Marcos">Marcos</Select.Option>
-                <Select.Option value="Persona01">Persona01</Select.Option>
-                <Select.Option value="Persona02">Persona02</Select.Option>
-                <Select.Option value="Persona03">Persona03</Select.Option>
-                <Select.Option value="Raul">Raul</Select.Option>
                 <Select.Option value="Oriana">Oriana</Select.Option>
+                <Select.Option value="Sofi">Sofi</Select.Option>
+                <Select.Option value="Dana">Dana</Select.Option>
+                <Select.Option value="Leo">Leo</Select.Option>
+                <Select.Option value="Raul">Raul</Select.Option>
               </Select>
             </Form.Item>
           </Col>
