@@ -214,8 +214,7 @@ const Programacion = (props: any) => {
                 <Select.Option value="Marcos">Marcos</Select.Option>
                 <Select.Option value="Oriana">Oriana</Select.Option>
                 <Select.Option value="Sofi">Sofi</Select.Option>
-                <Select.Option value="Dana">Dana</Select.Option>
-                <Select.Option value="Leo">Leo</Select.Option>
+                <Select.Option value="Dario">Dario</Select.Option>
                 <Select.Option value="Raul">Raul</Select.Option>
               </Select>
             </Form.Item>
