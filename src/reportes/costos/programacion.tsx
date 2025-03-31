@@ -210,11 +210,9 @@ const Programacion = (props: any) => {
             <Form.Item label="Responsable">
               <Select defaultValue="Todos" onChange={onChangeResponsable}>
                 <Select.Option value="Todos">Todos</Select.Option>
-                <Select.Option value="Kevin">Kevin</Select.Option>
-                <Select.Option value="Marcos">Marcos</Select.Option>
-                <Select.Option value="Oriana">Oriana</Select.Option>
-                <Select.Option value="Sofi">Sofi</Select.Option>
-                <Select.Option value="Dario">Dario</Select.Option>
+                <Select.Option value="Pasteleria">Pasteleria</Select.Option>
+                <Select.Option value="Pastas">Pastas</Select.Option>
+                <Select.Option value="Panaderia">Panaderia</Select.Option>
                 <Select.Option value="Raul">Raul</Select.Option>
               </Select>
             </Form.Item>
@@ -228,6 +226,7 @@ const Programacion = (props: any) => {
                 <Select.Option value="3">Semana 3</Select.Option>
                 <Select.Option value="4">Semana 4</Select.Option>
                 <Select.Option value="5">Semana 5</Select.Option>
+                <Select.Option value="6">Semana 6</Select.Option>
               </Select>
             </Form.Item>
           </Col>
