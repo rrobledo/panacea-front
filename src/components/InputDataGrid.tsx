@@ -50,6 +50,16 @@ function InputDataGridComponent({
       });
   };
 
+  const onRemoveSelected = () => {
+    const selectedNodes = refGrid.current?.api.getSelectedRows();
+    if (selectedNodes && selectedNodes.length > 0) {
+      const updatedData = rowData.filter(
+        row => !selectedNodes.some(selectedNode => selectedNode === row)
+      );
+      setRowData(updatedData);
+    }
+  };
+
   const searchData = (id: any) => {
     Modal.confirm({
       title: "",
@@ -79,8 +89,11 @@ function InputDataGridComponent({
     <>
       <Row>
         <Col span={12}>
-          <Button type="primary" onClick={searchData}>
+          <Button type="primary" onClick={searchData} style={{ marginRight: '8px' }}>
             Agregar Producto
+          </Button>
+          <Button type="primary" danger onClick={onRemoveSelected}>
+            Eliminar Selección
           </Button>
         </Col>
       </Row>
@@ -98,6 +111,8 @@ function InputDataGridComponent({
               columnDefs={colDefs}
               defaultColDef={defaultColDef}
               onComponentStateChanged={onStateUpdated}
+              rowSelection="multiple"  // or "single" if you only want to select one row at a time
+              suppressRowClickSelection={false}
             />
           </div>
         </Col>

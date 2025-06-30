@@ -66,6 +66,14 @@ function Productos(props: any) {
       ),
     },
     {
+      title: "Prod",
+      dataIndex: "is_producto",
+      key: "is_producto",
+      render: (_: any, record: any) => (
+        <Space size="middle">{record.is_producto ? "✅" : ""}</Space>
+      ),
+    },
+    {
       title: "Prioridad",
       dataIndex: "prioridad",
       key: "prioridad",

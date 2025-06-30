@@ -38,6 +38,7 @@ import Produccion from "../reportes/costos/produccion";
 import Ventas from "../reportes/costos/ventas";
 import Planning from "../reportes/costos/planning";
 import PrecioProductos from "../reportes/costos/precioProductos";
+import Estimaciones from "../reportes/costos/estimaciones";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -106,6 +107,11 @@ const Main = () => {
           key: "/precioproductos",
           icon: <GroupOutlined />,
           label: <Link to="/precioproductos">Precio Productos</Link>,
+        },
+        {
+          key: "/estimaciones",
+          icon: <GroupOutlined />,
+          label: <Link to="/estimaciones">Estimaciones</Link>,
         },
       ],
     },
@@ -418,6 +424,16 @@ const Main = () => {
                         <CostosMateriaPrimaView
                           ds={dataResource}
                           resource="costos_materia_prima"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/estimaciones"
+                      path="/estimaciones"
+                      element={
+                        <Estimaciones
+                          ds={dataResource}
+                          resource="precio_productos"
                         />
                       }
                     />

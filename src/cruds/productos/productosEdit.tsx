@@ -52,6 +52,10 @@ function ProductosEdit(props: any) {
           <Switch />
         </Form.Item>
 
+        <Form.Item label="Producto Final" name="is_producto">
+          <Switch />
+        </Form.Item>
+
         <Form.Item
           label="Prioridad"
           name="prioridad"
