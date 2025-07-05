@@ -39,6 +39,12 @@ import Ventas from "../reportes/costos/ventas";
 import Planning from "../reportes/costos/planning";
 import PrecioProductos from "../reportes/costos/precioProductos";
 import Estimaciones from "../reportes/costos/estimaciones";
+import Proveedores from "../cruds/proveedores/proveedores";
+import ProveedoresEdit from "../cruds/proveedores/proveedoresEdit";
+import ProveedoresCreate from "../cruds/proveedores/proveedoresCreate";
+import Facturas from "../cruds/facturas/facturas";
+import FacturasCreate from "../cruds/facturas/facturasCreate";
+import FacturasEdit from "../cruds/facturas/facturasEdit";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -64,11 +70,6 @@ const Main = () => {
       label: <Link to="/remitos">Remitos</Link>,
     },
     {
-      key: "/insumos",
-      icon: <FormOutlined />,
-      label: <Link to="/insumos">Insumos</Link>,
-    },
-    {
       key: "/productos",
       icon: <FormOutlined />,
       label: <Link to="/productos">Productos</Link>,
@@ -78,6 +79,30 @@ const Main = () => {
       icon: <GroupOutlined />,
       label: <Link to="/programacion">Programacion</Link>,
     },
+
+    {
+      key: "Proveedores",
+      label: "Proveedores",
+      icon: <FundOutlined />,
+      children: [
+        {
+          key: "/insumos",
+          icon: <FormOutlined />,
+          label: <Link to="/insumos">Insumos</Link>,
+        },
+        {
+          key: "/proveedores",
+          icon: <FormOutlined />,
+          label: <Link to="/proveedores">Proveedores</Link>,
+        },
+        {
+          key: "/facturas",
+          icon: <FormOutlined />,
+          label: <Link to="/facturas">Facturas/Gastos</Link>,
+        },
+      ],
+    },
+
     {
       key: "reportes",
       label: "Reportes",
@@ -310,6 +335,58 @@ const Main = () => {
                       path="/insumos/create"
                       element={
                         <InsumosCreate ds={dataResource} resource="insumos" />
+                      }
+                    />
+
+                    {/* PROVEEDORES */}
+                    <Route
+                      key="/proveedores"
+                      path="/proveedores"
+                      element={
+                        <Proveedores ds={dataResource} resource="proveedores" />
+                      }
+                    />
+                    <Route
+                      key="/proveedores/edit/:id"
+                      path="/proveedores/edit/:id"
+                      element={
+                        <ProveedoresEdit
+                          ds={dataResource}
+                          resource="proveedores"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/proveedores/create"
+                      path="/proveedores/create"
+                      element={
+                        <ProveedoresCreate
+                          ds={dataResource}
+                          resource="proveedores"
+                        />
+                      }
+                    />
+
+                    {/* FACTURAS */}
+                    <Route
+                      key="/facturas"
+                      path="/facturas"
+                      element={
+                        <Facturas ds={dataResource} resource="facturas" />
+                      }
+                    />
+                    <Route
+                      key="/facturas/edit/:id"
+                      path="/facturas/edit/:id"
+                      element={
+                        <FacturasEdit ds={dataResource} resource="facturas" />
+                      }
+                    />
+                    <Route
+                      key="/facturas/create"
+                      path="/facturas/create"
+                      element={
+                        <FacturasCreate ds={dataResource} resource="facturas" />
                       }
                     />
 
