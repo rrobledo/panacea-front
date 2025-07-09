@@ -37,7 +37,7 @@ function FacturaEdit(props: any) {
             </Form.Item>
           </Col>
 
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
               label="Número Comprobante"
               name="numero"
@@ -51,6 +51,7 @@ function FacturaEdit(props: any) {
               <Input />
             </Form.Item>
           </Col>
+          <Col span={8}></Col>
         </Row>
         <Row>
           <Col span={8}>
@@ -156,12 +157,16 @@ function FacturaEdit(props: any) {
             </Form.Item>
           </Col>
         </Row>
-        <FacturasPagos
-          ds={props.ds}
-          resourceParent={`${props.resource}/${params.id}`}
-          resource="ctacteprovpagos"
-          hidden={true}
-        />
+        <Row>
+          <Col span={24}>
+            <FacturasPagos
+              ds={props.ds}
+              resourceParent={`${props.resource}/${params.id}`}
+              resource="ctacteprovpagos"
+              hidden={true}
+            />
+          </Col>
+        </Row>
       </DataEdit>
     </div>
   );
