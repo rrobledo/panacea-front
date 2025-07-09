@@ -1,6 +1,3 @@
-import { Routes, Route, Link } from "react-router-dom";
-import { Table, Space } from "antd";
-import { useEffect, useState } from "react";
 import DataList from "../../components/DataList";
 
 function Facturas(props: any) {
@@ -20,16 +17,29 @@ function Facturas(props: any) {
       title: "Proveedor",
       dataIndex: "proveedor_nombre",
       key: "proveedor_nombre",
+      width: "60%",
+    },
+    {
+      title: "Estado",
+      dataIndex: "estado",
+      width: "10%",
+      key: "estado",
     },
     {
       title: "Importe",
       dataIndex: "importe_total",
       key: "importe_total",
-    },
-    {
-      title: "Estado",
-      dataIndex: "estado",
-      key: "estado",
+      width: "8%",
+      render: (data: any) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
+      },
     },
   ];
 
