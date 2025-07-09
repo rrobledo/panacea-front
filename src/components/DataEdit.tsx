@@ -1,6 +1,7 @@
 import { Children, useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, Select, Spin } from "antd";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import dayjs from "dayjs";
 
 const formItemLayout = {
   labelCol: {
@@ -28,11 +29,19 @@ function DataEdit(props: any) {
   const form = Form.useForm()[0];
   const dataSource = props.ds;
   const editable = props.editable != undefined ? props.editable : true;
+  const attributesToConvertToDate: [] =
+    props.attributesToConvertToDate != undefined
+      ? props.attributesToConvertToDate
+      : [];
   const resourceParent = useLocation().state.resourceParent;
   let submitButton = <></>;
 
-  console.log(editable);
   const onsubmit = (values: any) => {
+    attributesToConvertToDate.forEach((key) => {
+      if (values[key] !== null) {
+        values[key] = dayjs(values[key]).format("YYYY-MM-DD");
+      }
+    });
     setIsLoading(true);
     dataSource
       .patch(`${resourceParent}${props.resource}`, params.id, values)
@@ -76,6 +85,7 @@ function DataEdit(props: any) {
     <div
       style={{
         textAlign: "left",
+        width: "100%",
       }}
     >
       <div>
@@ -86,7 +96,7 @@ function DataEdit(props: any) {
           {...formItemLayout}
           variant="filled"
           style={{
-            maxWidth: 600,
+            maxWidth: "100%",
           }}
           onFinish={onsubmit}
           form={form}

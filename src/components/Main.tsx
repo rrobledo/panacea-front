@@ -96,9 +96,9 @@ const Main = () => {
           label: <Link to="/proveedores">Proveedores</Link>,
         },
         {
-          key: "/facturas",
+          key: "/ctacteprov",
           icon: <FormOutlined />,
-          label: <Link to="/facturas">Facturas/Gastos</Link>,
+          label: <Link to="/ctacteprov">Facturas/Gastos</Link>,
         },
       ],
     },
@@ -369,24 +369,27 @@ const Main = () => {
 
                     {/* FACTURAS */}
                     <Route
-                      key="/facturas"
-                      path="/facturas"
+                      key="/ctacteprov"
+                      path="/ctacteprov"
                       element={
-                        <Facturas ds={dataResource} resource="facturas" />
+                        <Facturas ds={dataResource} resource="ctacteprov" />
                       }
                     />
                     <Route
-                      key="/facturas/edit/:id"
-                      path="/facturas/edit/:id"
+                      key="/ctacteprov/edit/:id"
+                      path="/ctacteprov/edit/:id"
                       element={
-                        <FacturasEdit ds={dataResource} resource="facturas" />
+                        <FacturasEdit ds={dataResource} resource="ctacteprov" />
                       }
                     />
                     <Route
-                      key="/facturas/create"
-                      path="/facturas/create"
+                      key="/ctacteprov/create"
+                      path="/ctacteprov/create"
                       element={
-                        <FacturasCreate ds={dataResource} resource="facturas" />
+                        <FacturasCreate
+                          ds={dataResource}
+                          resource="ctacteprov"
+                        />
                       }
                     />
 

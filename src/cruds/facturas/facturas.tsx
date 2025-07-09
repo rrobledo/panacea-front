@@ -1,3 +1,6 @@
+import { Routes, Route, Link } from "react-router-dom";
+import { Table, Space } from "antd";
+import { useEffect, useState } from "react";
 import DataList from "../../components/DataList";
 
 function Facturas(props: any) {
@@ -9,19 +12,19 @@ function Facturas(props: any) {
       hidden: true,
     },
     {
-      title: "Proveedor",
-      dataIndex: "proveedor_nombre",
-      key: "proveedor_nombre",
-    },
-    {
       title: "Fecha",
       dataIndex: "fecha_emision",
       key: "fecha_emision",
     },
     {
-      title: "Fecha Vencimiento",
-      dataIndex: "fecha_vencimiento",
-      key: "fecha_vencimiento",
+      title: "Proveedor",
+      dataIndex: "proveedor_nombre",
+      key: "proveedor_nombre",
+    },
+    {
+      title: "Importe",
+      dataIndex: "importe_total",
+      key: "importe_total",
     },
     {
       title: "Estado",
@@ -31,15 +34,16 @@ function Facturas(props: any) {
   ];
 
   return (
-    <div>
-      <b>FACTURAS Y GASTOS</b>
+    <>
+      <b>FACTURAS/GASTOS</b>
       <DataList
         ds={props.ds}
         resource={props.resource}
         columns={columns}
         viewAction={false}
       />
-    </div>
+      ;
+    </>
   );
 }
 

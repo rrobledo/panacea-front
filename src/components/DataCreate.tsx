@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, Select, Spin } from "antd";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import dayjs from "dayjs";
 
 const formItemLayout = {
   labelCol: {
@@ -30,14 +31,22 @@ function DataCreate(props: any) {
   const resourceParent =
     resourceParentParam != undefined ? `${resourceParentParam}/` : "";
   const defaultValues = props.defaultValues;
+  const attributesToConvertToDate: [] =
+    props.attributesToConvertToDate != undefined
+      ? props.attributesToConvertToDate
+      : [];
 
   if (props.form != undefined) {
     form = props.form;
   }
 
   const onsubmit = (values: any) => {
+    attributesToConvertToDate.forEach((key) => {
+      if (values[key] !== null) {
+        values[key] = dayjs(values[key]).format("YYYY-MM-DD");
+      }
+    });
     setIsLoading(true);
-    console.log(values);
     dataSource
       .post(`${resourceParentParam}${props.resource}`, values)
       .then((res: any) => {
@@ -71,6 +80,7 @@ function DataCreate(props: any) {
     <div
       style={{
         textAlign: "left",
+        width: "100%",
       }}
     >
       <div>
@@ -81,7 +91,7 @@ function DataCreate(props: any) {
           {...formItemLayout}
           variant="filled"
           style={{
-            maxWidth: 600,
+            maxWidth: "100%",
           }}
           onFinish={onsubmit}
           form={form}

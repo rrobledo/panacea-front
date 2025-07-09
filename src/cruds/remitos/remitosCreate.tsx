@@ -53,7 +53,6 @@ function RemitosCreate(props: any) {
         <InputListSearch
           ds={props.ds}
           resource="clientes"
-          targetInput="cliente"
           searchFieldName="nombre"
         />
       </Form.Item>

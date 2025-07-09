@@ -5,30 +5,29 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { Form, Modal, Button, Input, Row, Col, Spin } from "antd";
 import { withDefaultProps } from "with-default-props";
+import { SearchOutlined } from "@ant-design/icons";
 
 interface IRow {
   nombre: string;
 }
 
 export function DataListSearch(props: any) {
-  const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState(null);
   const [data, setData] = useState([]);
+  const searchFieldName = props.searchFieldName;
+  const idFieldName = props.idFieldName;
   const refInputData = props.refInputData;
-  const resource = props.resource;
+  const [resource, setResource] = useState(props.resource);
   const refInputHiddenData = props.refInputHiddenData;
-  const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([{ field: "nombre" }]);
+  const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
+    { field: searchFieldName },
+  ]);
   const refInputSearch = useRef<any>(null);
-
-  const onChange = (event: any) => {
-    setValue(event.target.value);
-  };
 
   const onSearch = (key: any) => {
     setIsLoading(true);
     props.ds
-      .getList(resource, { nombre: key })
+      .getList(resource, { [searchFieldName]: key })
       .then((res: any) => {
         setData(res.data);
         setIsLoading(false);
@@ -47,9 +46,8 @@ export function DataListSearch(props: any) {
     // Mark the column selected on key down and up.
     let nodes = event.api.getRenderedNodes();
     nodes[event.rowIndex].setSelected(true);
-    setInputValue(nodes[event.rowIndex].data.nombre);
-    refInputHiddenData.current.value = nodes[event.rowIndex].data.absolute_url;
-    refInputData.current.value = nodes[event.rowIndex].data.nombre;
+    refInputHiddenData.current.value = nodes[event.rowIndex].data[idFieldName];
+    refInputData.current.value = nodes[event.rowIndex].data[searchFieldName];
   };
 
   const gridRef = useRef<HTMLDivElement>(null);
@@ -71,7 +69,6 @@ export function DataListSearch(props: any) {
   };
 
   useEffect(() => {
-    console.log(refInputSearch);
     refInputSearch.current.focus({
       cursor: "start",
     });
@@ -81,10 +78,12 @@ export function DataListSearch(props: any) {
     <div>
       <Input.Search
         placeholder="Buscar..."
-        value={value}
-        onChange={onChange}
         onSearch={onSearch}
-        enterButton
+        enterButton={
+          <Button type="primary" icon={<SearchOutlined />}>
+            Buscar
+          </Button>
+        }
         style={{ width: "300px" }}
         autoFocus={true}
         ref={refInputSearch}
@@ -118,9 +117,8 @@ type Props = {
   onChange: any;
   ds: any;
   resource: any;
-  targetInput: any;
-  targetInputName: any;
   searchFieldName: any;
+  idFieldName: any;
 };
 
 function InputListSearchComponent({
@@ -128,18 +126,27 @@ function InputListSearchComponent({
   onChange,
   ds,
   resource,
-  targetInput,
-  targetInputName,
   searchFieldName,
+  idFieldName,
 }: Props) {
   const refInputHiddenData = useRef<any>(null);
   const refInputData = useRef<any>(null);
 
   const getLabel = () => {
-    if (value != null) {
-      ds.getUrl(value).then((res: any) => {
-        refInputData.current.value = res.data.nombre;
-      });
+    if (value != null && value !== "") {
+      if (Number.isInteger(Number(value))) {
+        ds.get(resource, value).then((res: any) => {
+          if (refInputData.current != null) {
+            refInputData.current.value = res.data[searchFieldName];
+          }
+        });
+      } else {
+        ds.getUrl(value).then((res: any) => {
+          if (refInputData.current != null) {
+            refInputData.current.value = res.data[searchFieldName];
+          }
+        });
+      }
     }
   };
 
@@ -153,6 +160,8 @@ function InputListSearchComponent({
           refInputData={refInputData}
           refInputHiddenData={refInputHiddenData}
           resource={resource}
+          searchFieldName={searchFieldName}
+          idFieldName={idFieldName}
         />
       ),
       onOk() {
@@ -164,7 +173,7 @@ function InputListSearchComponent({
 
   useEffect(() => {
     getLabel();
-  }, []);
+  }, ["value"]);
 
   return (
     <>
@@ -181,20 +190,13 @@ function InputListSearchComponent({
               background: "rgba(0, 0, 0, 0.04)",
             }}
             type="text"
-            value={value}
           />
         </Col>
         <Col span={4} style={{ display: "flex", justifyContent: "left" }}>
           <Button onClick={searchData}>...</Button>
         </Col>
+        <input readOnly={true} ref={refInputHiddenData} hidden={true} />
       </Row>
-      <Form.Item name={targetInput} hidden={true}>
-        <Input readOnly={true} />
-      </Form.Item>
-      <Form.Item name={targetInputName} hidden={true}>
-        <Input readOnly={true} />
-      </Form.Item>
-      <input readOnly={true} ref={refInputHiddenData} hidden={true} />
     </>
   );
 }
@@ -204,8 +206,7 @@ const InputListSearch = withDefaultProps(InputListSearchComponent, {
   onChange: null,
   ds: null,
   resource: "/",
-  targetInput: "",
-  targetInputName: "",
   searchFieldName: "",
+  idFieldName: "id",
 });
 export default InputListSearch;
