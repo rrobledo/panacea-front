@@ -4,6 +4,7 @@ import DataCreate from "../../components/DataCreate";
 import { useParams } from "react-router-dom";
 import InputListSearch from "../../components/InputListSearch";
 import dayjs from "dayjs";
+import ClipboardImageItem from "../../components/ClipboardImageItem";
 
 function FacturaCreate(props: any) {
   const dateFormat = "YYYY-MM-DD";
@@ -15,6 +16,7 @@ function FacturaCreate(props: any) {
         ds={props.ds}
         resource={props.resource}
         attributesToConvertToDate={["fecha_emision", "fecha_vencimiento"]}
+        imageAttributes={["image"]}
       >
         <Row>
           <Col span={8}>
@@ -170,6 +172,13 @@ function FacturaCreate(props: any) {
               ]}
             >
               <TextArea autoSize={{ minRows: 3, maxRows: 6 }} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Form.Item name="image">
+              <ClipboardImageItem />
             </Form.Item>
           </Col>
         </Row>

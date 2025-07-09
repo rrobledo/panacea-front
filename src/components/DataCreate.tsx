@@ -35,17 +35,40 @@ function DataCreate(props: any) {
     props.attributesToConvertToDate != undefined
       ? props.attributesToConvertToDate
       : [];
+  const imageAttributes: [] =
+    props.imageAttributes != undefined ? props.imageAttributes : [];
 
   if (props.form != undefined) {
     form = props.form;
   }
 
-  const onsubmit = (values: any) => {
+  const toBase64 = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(",")[1]; // remove "data:image/png;base64,"
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+
+  const onsubmit = async (values: any) => {
+    console.log(values.image);
     attributesToConvertToDate.forEach((key) => {
       if (values[key] !== null) {
         values[key] = dayjs(values[key]).format("YYYY-MM-DD");
       }
     });
+
+    for (const key of imageAttributes) {
+      console.log(values[key]);
+      if (values[key] !== null) {
+        console.log(values[key]);
+        values[key] = await toBase64(values[key]);
+      }
+    }
+
     setIsLoading(true);
     dataSource
       .post(`${resourceParentParam}${props.resource}`, values)
