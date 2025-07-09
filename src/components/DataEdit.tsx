@@ -35,6 +35,7 @@ function DataEdit(props: any) {
       : [];
   const resourceParent = useLocation().state.resourceParent;
   let submitButton = <></>;
+  const [data, setData] = useState({});
 
   const onsubmit = (values: any) => {
     attributesToConvertToDate.forEach((key) => {
@@ -58,6 +59,7 @@ function DataEdit(props: any) {
       .get(`${resourceParent}${props.resource}`, params.id)
       .then((res: any) => {
         setIsLoading(false);
+        setData(res.data);
         form.setFieldsValue(res.data);
       });
   };

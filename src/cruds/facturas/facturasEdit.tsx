@@ -4,6 +4,7 @@ import DataEdit from "../../components/DataEdit";
 import InputListSearch from "../../components/InputListSearch";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import FacturasPagos from "./pagosdetail/pagosDetail";
 
 function FacturaEdit(props: any) {
   const dateFormat = "YYYY-MM-DD";
@@ -155,6 +156,12 @@ function FacturaEdit(props: any) {
             </Form.Item>
           </Col>
         </Row>
+        <FacturasPagos
+          ds={props.ds}
+          resourceParent={`${props.resource}/${params.id}`}
+          resource="ctacteprovpagos"
+          hidden={true}
+        />
       </DataEdit>
     </div>
   );

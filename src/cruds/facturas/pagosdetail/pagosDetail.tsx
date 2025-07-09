@@ -1,6 +1,6 @@
 import DataList from "../../../components/DataList";
 
-function CostosDetail(props: any) {
+function FacturasPagos(props: any) {
   const columns = [
     {
       title: "Id",
@@ -9,34 +9,29 @@ function CostosDetail(props: any) {
       hidden: true,
     },
     {
-      title: "Insumo",
-      dataIndex: "insumo_nombre",
-      key: "insumo_nombre",
+      title: "Fecha Pago",
+      dataIndex: "fecha_emision",
+      key: "fecha_emision",
     },
     {
-      title: "Cantidad",
-      dataIndex: "cantidad",
-      key: "cantidad",
-    },
-    {
-      title: "Medida",
-      dataIndex: "insumo_unidad_medida",
-      key: "insumo_unidad_medida",
+      title: "Importe",
+      dataIndex: "importe_total",
+      key: "importe_total",
     },
   ];
 
   return (
     <>
+      <b>PAGOS</b>
       <DataList
         ds={props.ds}
-        columns={columns}
-        addAction={true}
         resource={props.resource}
-        resourceParent={props.resourceParent}
+        columns={columns}
         viewAction={false}
       />
+      ;
     </>
   );
 }
 
-export default CostosDetail;
+export default FacturasPagos;

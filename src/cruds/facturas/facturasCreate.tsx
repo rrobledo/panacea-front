@@ -20,6 +20,12 @@ function FacturaCreate(props: any) {
           <Col span={8}>
             <Form.Item
               label="Provedor"
+              name="tipo_movimiento"
+              initialValue={"FACTURA"}
+              hidden={true}
+            ></Form.Item>
+            <Form.Item
+              label="Provedor"
               name="proveedor"
               rules={[
                 {
