@@ -45,6 +45,10 @@ import ProveedoresCreate from "../cruds/proveedores/proveedoresCreate";
 import Facturas from "../cruds/facturas/facturas";
 import FacturasCreate from "../cruds/facturas/facturasCreate";
 import FacturasEdit from "../cruds/facturas/facturasEdit";
+import PagosCreate from "../cruds/facturas/pagosdetail/pagosDetailCreate";
+import FacturasPagos from "../cruds/facturas/pagosdetail/pagosDetail";
+import FacturaPagosCreate from "../cruds/facturas/pagosdetail/pagosDetailCreate";
+import FacturaPagosEdit from "../cruds/facturas/pagosdetail/pagosDetailEdit";
 
 const Main = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -54,8 +58,8 @@ const Main = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const dataResource: DataResource = new DataResource(
-    "https://panacea-one.vercel.app/costos"
-    //"http://localhost:8000/costos"
+    //"https://panacea-one.vercel.app/costos"
+    "http://localhost:8000/costos"
   );
 
   const items = [
@@ -393,6 +397,30 @@ const Main = () => {
                       }
                     />
 
+                    {/* FACTURA PAGOS*/}
+                    <Route
+                      key="/ctacteprov/:factura_id/pagos/edit/:id"
+                      path="/ctacteprov/:factura_id/pagos/edit/:id"
+                      element={
+                        <FacturaPagosEdit
+                          ds={dataResource}
+                          resource="pagos"
+                          resourceParent="ctacteprov"
+                        />
+                      }
+                    />
+                    <Route
+                      key="/ctacteprov/:factura_id/pagos/create"
+                      path="/ctacteprov/:factura_id/pagos/create"
+                      element={
+                        <FacturaPagosCreate
+                          ds={dataResource}
+                          resource="pagos"
+                          resourceParent="ctacteprov"
+                        />
+                      }
+                    />
+
                     {/* PRODUCTOS */}
                     <Route
                       key="/productos"
@@ -419,7 +447,7 @@ const Main = () => {
                       }
                     />
 
-                    {/* PRODUCTOS*/}
+                    {/* PRODUCTOS COSTOS*/}
                     <Route
                       key="/productos/:producto_id/costos/edit/:id"
                       path="/productos/:producto_id/costos/edit/:id"

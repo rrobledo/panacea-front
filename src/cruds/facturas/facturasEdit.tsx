@@ -10,10 +10,13 @@ import ClipboardImageItem from "../../components/ClipboardImageItem";
 function FacturaEdit(props: any) {
   const dateFormat = "YYYY-MM-DD";
   const params = useParams();
+  const form = Form.useForm()[0];
+
   return (
     <div>
       <DataEdit
         ds={props.ds}
+        form={form}
         resource={props.resource}
         attributesToConvertToDate={["fecha_emision", "fecha_vencimiento"]}
         imageAttributes={["image"]}
@@ -171,8 +174,7 @@ function FacturaEdit(props: any) {
             <FacturasPagos
               ds={props.ds}
               resourceParent={`${props.resource}/${params.id}`}
-              resource="ctacteprovpagos"
-              hidden={true}
+              resource="pagos"
             />
           </Col>
         </Row>

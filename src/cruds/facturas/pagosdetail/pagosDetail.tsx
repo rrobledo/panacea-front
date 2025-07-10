@@ -1,6 +1,7 @@
 import DataList from "../../../components/DataList";
 
 function FacturasPagos(props: any) {
+  console.log(props.proveedor);
   const columns = [
     {
       title: "Id",
@@ -25,8 +26,10 @@ function FacturasPagos(props: any) {
       <b>PAGOS</b>
       <DataList
         ds={props.ds}
-        resource={props.resource}
         columns={columns}
+        addAction={true}
+        resource={props.resource}
+        resourceParent={props.resourceParent}
         viewAction={false}
       />
       ;

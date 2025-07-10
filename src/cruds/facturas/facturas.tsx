@@ -12,12 +12,25 @@ function Facturas(props: any) {
       title: "Fecha",
       dataIndex: "fecha_emision",
       key: "fecha_emision",
+      width: "10%",
     },
     {
       title: "Proveedor",
       dataIndex: "proveedor_nombre",
       key: "proveedor_nombre",
-      width: "60%",
+      width: "20%",
+    },
+    {
+      title: "Observaciones",
+      dataIndex: "observaciones",
+      key: "observaciones",
+      width: "30%",
+    },
+    {
+      title: "Categoria",
+      dataIndex: "categoria",
+      key: "categoria",
+      width: "10%",
     },
     {
       title: "Estado",

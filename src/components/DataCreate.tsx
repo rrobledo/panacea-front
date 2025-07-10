@@ -54,16 +54,15 @@ function DataCreate(props: any) {
     });
 
   const onsubmit = async (values: any) => {
-    console.log(values.image);
     attributesToConvertToDate.forEach((key) => {
-      if (values[key] !== null) {
+      console.log(values[key]);
+      if (values[key] !== null && values[key] !== undefined) {
         values[key] = dayjs(values[key]).format("YYYY-MM-DD");
       }
     });
 
     for (const key of imageAttributes) {
-      console.log(values[key]);
-      if (values[key] !== null) {
+      if (values[key] !== null && values[key] !== undefined) {
         console.log(values[key]);
         values[key] = await toBase64(values[key]);
       }
