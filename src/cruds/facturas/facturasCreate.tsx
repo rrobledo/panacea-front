@@ -16,7 +16,7 @@ function FacturaCreate(props: any) {
         ds={props.ds}
         resource={props.resource}
         attributesToConvertToDate={["fecha_emision", "fecha_vencimiento"]}
-        imageAttributes={["image"]}
+        imageAttributes={["image", "image2"]}
       >
         <Row>
           <Col span={8}>
@@ -176,8 +176,13 @@ function FacturaCreate(props: any) {
           </Col>
         </Row>
         <Row>
-          <Col span={24}>
+          <Col span={12}>
             <Form.Item name="image">
+              <ClipboardImageItem />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="image2">
               <ClipboardImageItem />
             </Form.Item>
           </Col>
