@@ -1,11 +1,18 @@
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { Link } from "react-router-dom";
 import { Table, Button, Space, Modal } from "antd";
-import { useEffect, useRef, useState } from "react";
 
 export type useRunOnceProps = {
   fn: () => any;
   sessionKey?: string;
 };
+
+export interface GenericFilterRef {
+  getFilterValues: () => any;
+  resetFilter: () => void;
+  setFilterValues: (values: any) => void;
+  refreshList: () => void;
+}
 
 const useRunOnce: React.FC<useRunOnceProps> = ({ fn, sessionKey }) => {
   const triggered = useRef<boolean>(false);
@@ -32,6 +39,7 @@ function DataList(props: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
   const [columns, setColumns] = useState([]);
+  const filterRef = useRef<GenericFilterRef>(null);
 
   const addAction = props.addAction != undefined ? props.addAction : true;
   const delAction = props.delAction != undefined ? props.delAction : true;
@@ -44,7 +52,11 @@ function DataList(props: any) {
     props.resourceParent != undefined ? `${props.resourceParent}/` : "";
 
   const getList = () => {
-    props.ds.getList(`${resourceParent}${props.resource}`).then((res: any) => {
+    const filterValues = filterRef.current?.getFilterValues();
+    const queryParams = filterValues ? new URLSearchParams(filterValues).toString() : '';
+    const url = queryParams ? `${resourceParent}${props.resource}?${queryParams}` : `${resourceParent}${props.resource}`;
+    
+    props.ds.getList(url).then((res: any) => {
       setDataSource(res.data);
       setIsLoading(false);
     });
@@ -111,6 +123,7 @@ function DataList(props: any) {
     });
   };
 
+
   useEffect(() => {
     getList();
   }, []);
@@ -121,8 +134,10 @@ function DataList(props: any) {
     },
   });
 
+
   return (
     <div>
+      { React.isValidElement(props.filterAsForm) ? React.cloneElement(props.filterAsForm, { ref: filterRef, onRefreshList: getList }) : null}
       <div
         style={{
           textAlign: "right",
@@ -150,6 +165,8 @@ function DataList(props: any) {
       </div>
     </div>
   );
-}
+};
+
+DataList.displayName = 'DataList';
 
 export default DataList;
