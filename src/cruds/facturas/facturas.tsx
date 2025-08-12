@@ -92,7 +92,6 @@ function Facturas(props: any) {
             <GenericFilter 
               attributesToConvertToDate={["fecha_desde", "fecha_hasta"]}
             >
-            <Row>
               <Col span={5}>
                 <Form.Item
                  label="Fecha Desde"
@@ -141,7 +140,7 @@ function Facturas(props: any) {
                   </Select>
                 </Form.Item>
               </Col>
-            </Row>
+
           </GenericFilter>
         }
                 summaryList={

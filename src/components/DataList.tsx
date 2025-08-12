@@ -165,7 +165,6 @@ function DataList(props: any) {
 
   return (
     <div>
-      { React.isValidElement(props.filterAsForm) ? React.cloneElement(props.filterAsForm, { ref: filterRef, onRefreshList: getList }) : null}
       <Form
           {...formItemLayout}
           variant="filled"
@@ -176,7 +175,8 @@ function DataList(props: any) {
           labelAlign="left"
         >
           { React.isValidElement(props.summaryList) ? props.summaryList : null}
-        </Form>
+      </Form>
+      { React.isValidElement(props.filterAsForm) ? React.cloneElement(props.filterAsForm, { ref: filterRef, onRefreshList: getList }) : null}
       <div
         style={{
           textAlign: "right",

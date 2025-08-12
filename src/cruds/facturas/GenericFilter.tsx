@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import { Form, Button} from 'antd';
+import { Form, Button, Row, Col} from 'antd';
 import dayjs from 'dayjs';
 
 export interface GenericFilterRef {
@@ -54,23 +54,28 @@ const GenericFilter = forwardRef<GenericFilterRef, GenericFilterProps>(
         labelAlign="left"
         onValuesChange={handleFormChange}
       >
-        {children}
-        <Form.Item
-          wrapperCol={{
-            offset: 0,
-            span: 24,
-          }}
-          style={{ marginTop: 16, textAlign: 'left' }}
-        >
-          <Button 
-            type="primary" 
-            onClick={onRefreshList}
-            style={{ marginRight: 8 }}
-          >
-            Aplicar Filtros
-          </Button>
-        </Form.Item>
-      </Form>
+        <Row>
+          {children}
+          <Col span={1}></Col>
+          <Col span={4}>
+            <Form.Item
+              wrapperCol={{
+                offset: 0,
+                span: 24,
+              }}
+              style={{textAlign: 'left' }}
+            >
+              <Button 
+                type="primary" 
+                onClick={onRefreshList}
+                style={{ marginRight: 8 }}
+              >
+                Aplicar Filtros
+              </Button>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form> 
     );
   }
 );

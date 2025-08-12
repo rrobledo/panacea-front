@@ -96,7 +96,14 @@ function FacturaEdit(props: any) {
                 },
               ]}
             >
-              <InputNumber style={{ width: "100%" }} />
+              <InputNumber 
+                style={{ width: "100%", textAlign: "right" }}
+                formatter={(value) => 
+                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                }
+                parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
+                placeholder="0.00"
+                />
             </Form.Item>
           </Col>
 
