@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { Link } from "react-router-dom";
-import { Table, Button, Space, Modal } from "antd";
+import { Table, Button, Space, Modal, Form } from "antd";
 
 export type useRunOnceProps = {
   fn: () => any;
@@ -13,6 +13,26 @@ export interface GenericFilterRef {
   setFilterValues: (values: any) => void;
   refreshList: () => void;
 }
+
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 15,
+    },
+    sm: {
+      span: 15,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 15,
+    },
+  },
+};
+
 
 const useRunOnce: React.FC<useRunOnceProps> = ({ fn, sessionKey }) => {
   const triggered = useRef<boolean>(false);
@@ -40,6 +60,8 @@ function DataList(props: any) {
   const [dataSource, setDataSource] = useState([]);
   const [columns, setColumns] = useState([]);
   const filterRef = useRef<GenericFilterRef>(null);
+  const form = Form.useForm()[0];
+
 
   const addAction = props.addAction != undefined ? props.addAction : true;
   const delAction = props.delAction != undefined ? props.delAction : true;
@@ -55,11 +77,17 @@ function DataList(props: any) {
     const filterValues = filterRef.current?.getFilterValues();
     const queryParams = filterValues ? new URLSearchParams(filterValues).toString() : '';
     const url = queryParams ? `${resourceParent}${props.resource}?${queryParams}` : `${resourceParent}${props.resource}`;
+    const urlResumen = queryParams ? `${resourceParent}${props.resource}resumen?${queryParams}` : `${resourceParent}${props.resource}resumen`;
     
     props.ds.getList(url).then((res: any) => {
       setDataSource(res.data);
       setIsLoading(false);
     });
+    if (React.isValidElement(props.summaryList)) {
+      props.ds.getList(urlResumen).then((res: any) => {
+        form.setFieldsValue(res.data[0]);
+      });
+    }
   };
 
   const addActions = () => {
@@ -138,6 +166,17 @@ function DataList(props: any) {
   return (
     <div>
       { React.isValidElement(props.filterAsForm) ? React.cloneElement(props.filterAsForm, { ref: filterRef, onRefreshList: getList }) : null}
+      <Form
+          {...formItemLayout}
+          variant="filled"
+          style={{
+            maxWidth: "100%",
+          }}
+          form={form}
+          labelAlign="left"
+        >
+          { React.isValidElement(props.summaryList) ? props.summaryList : null}
+        </Form>
       <div
         style={{
           textAlign: "right",

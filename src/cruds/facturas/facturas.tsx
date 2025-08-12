@@ -1,7 +1,7 @@
 import DataList, { GenericFilterRef } from "../../components/DataList";
 import GenericFilter from "./GenericFilter";
 import { useRef } from "react";
-import { Form, DatePicker, Select, Col, Row } from "antd";
+import { Form, DatePicker, Select, Col, Row, InputNumber } from "antd";
 import dayjs from "dayjs";
 
 function Facturas(props: any) {
@@ -61,6 +61,22 @@ function Facturas(props: any) {
         );
       },
     },
+    {
+      title: "Importe Pendiente",
+      dataIndex: "importe_pendiente",
+      key: "importe_pendiente",
+      width: "8%",
+      render: (data: any) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
+      },
+    },
   ];
   
   return (
@@ -72,7 +88,7 @@ function Facturas(props: any) {
         resource={props.resource}
         columns={columns}
         viewAction={false}
-                  filterAsForm={
+        filterAsForm={
             <GenericFilter 
               attributesToConvertToDate={["fecha_desde", "fecha_hasta"]}
             >
@@ -127,6 +143,43 @@ function Facturas(props: any) {
               </Col>
             </Row>
           </GenericFilter>
+        }
+                summaryList={
+          <Row>
+            <Col span={8}>
+              <Form.Item 
+                label="Total Facturas Pendientes"
+                name="total_facturas_pendientes"
+              >
+                <InputNumber 
+                  style={{ width: "100%", textAlign: "right" }}
+                  formatter={(value) => 
+                    `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                  }
+                  parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
+                  placeholder="0.00"
+                  readOnly
+                />
+              </Form.Item>
+            </Col>
+            <Col span={4}></Col>
+            <Col span={8}>
+              <Form.Item 
+                label="Total Gastos"
+                name="total_gastos"
+              >
+                <InputNumber 
+                  style={{ width: "100%", textAlign: "right" }}
+                  formatter={(value) => 
+                    `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                  }
+                  parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
+                  placeholder="0.00"
+                  readOnly
+                />
+              </Form.Item>
+            </Col>
+          </Row>
         }
       />
       ;
