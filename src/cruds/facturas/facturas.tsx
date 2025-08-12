@@ -164,7 +164,7 @@ function Facturas(props: any) {
             <Col span={4}></Col>
             <Col span={8}>
               <Form.Item 
-                label="Total Gastos"
+                label="Total Gastos en el Periodo"
                 name="total_gastos"
               >
                 <InputNumber 
