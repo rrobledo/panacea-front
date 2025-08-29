@@ -22,6 +22,12 @@ function Facturas(props: any) {
       width: "10%",
     },
     {
+      title: "Tipo Movimiento",
+      dataIndex: "tipo_movimiento",
+      key: "tipo_movimiento",
+      width: "10%",
+    },
+    {
       title: "Proveedor",
       dataIndex: "proveedor_nombre",
       key: "proveedor_nombre",
