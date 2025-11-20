@@ -167,6 +167,12 @@ const Ventas = (props: any) => {
                 <Select.Option value=" Panacea Villa Allende">
                   Panacea Villa Allende (SUBTOTAL)
                 </Select.Option>
+                <Select.Option value="Panacea Cordoba">
+                  Panacea Cordoba (TOTAL)
+                </Select.Option>
+                <Select.Option value=" Panacea Cordoba">
+                  Panacea Cordoba (SUBTOTAL)
+                </Select.Option>
                 <Select.Option value="Dieteticas">
                   Dieteticas (TOTAL)
                 </Select.Option>
