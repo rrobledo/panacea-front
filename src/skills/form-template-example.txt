@@ -1,0 +1,406 @@
+/**
+ * PLANTILLA DE FORMULARIO CRUD
+ *
+ * Este archivo sirve como plantilla para crear nuevos formularios.
+ * Copiar y adaptar según la entidad que se necesite.
+ *
+ * Archivos a crear para una nueva entidad "ejemplo":
+ * - src/cruds/ejemplo/ejemplo.tsx (lista)
+ * - src/cruds/ejemplo/ejemploCreate.tsx (crear)
+ * - src/cruds/ejemplo/ejemploEdit.tsx (editar)
+ */
+
+// ============================================================================
+// ARCHIVO: ejemploCreate.tsx
+// ============================================================================
+
+import { Card, Col, Form, Input, InputNumber, Row, Select, Switch } from "antd";
+import DataCreate from "../../components/DataCreate";
+
+// Constantes para selectores - definir fuera del componente
+const CATEGORIAS = [
+  { value: "CAT1", label: "Categoría 1" },
+  { value: "CAT2", label: "Categoría 2" },
+  { value: "CAT3", label: "Categoría 3" },
+];
+
+const ESTADOS = [
+  { value: "ACTIVO", label: "Activo" },
+  { value: "INACTIVO", label: "Inactivo" },
+];
+
+const UNIDADES = [
+  { value: "UN", label: "Unidades" },
+  { value: "KG", label: "Kilogramos" },
+  { value: "LT", label: "Litros" },
+];
+
+function EjemploCreate(props: any) {
+  return (
+    <div>
+      <DataCreate ds={props.ds} resource={props.resource}>
+        {/* ==================== SECCIÓN 1: Información Básica ==================== */}
+        <Card title="Información Básica" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            {/* Código - Campo de texto */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Código"
+                name="codigo"
+                rules={[{ required: true, message: "Ingrese el código" }]}
+              >
+                <Input placeholder="Ej: EJ001" />
+              </Form.Item>
+            </Col>
+
+            {/* Nombre - Campo de texto */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Nombre"
+                name="nombre"
+                rules={[{ required: true, message: "Ingrese el nombre" }]}
+              >
+                <Input placeholder="Nombre descriptivo" />
+              </Form.Item>
+            </Col>
+
+            {/* Categoría - Selector */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Categoría"
+                name="categoria"
+                rules={[{ required: true, message: "Seleccione una categoría" }]}
+              >
+                <Select placeholder="Seleccione categoría">
+                  {CATEGORIAS.map((cat) => (
+                    <Select.Option key={cat.value} value={cat.value}>
+                      {cat.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={24}>
+            {/* Habilitado - Switch */}
+            <Col xs={12} sm={6} md={4}>
+              <Form.Item
+                label="Habilitado"
+                name="habilitado"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+
+            {/* Estado - Selector pequeño */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Estado"
+                name="estado"
+                rules={[{ required: true, message: "Seleccione el estado" }]}
+              >
+                <Select placeholder="Seleccione">
+                  {ESTADOS.map((e) => (
+                    <Select.Option key={e.value} value={e.value}>
+                      {e.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+
+        {/* ==================== SECCIÓN 2: Valores y Precios ==================== */}
+        <Card title="Valores y Precios" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            {/* Precio - Campo monetario */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Precio"
+                name="precio"
+                rules={[{ required: true, message: "Ingrese el precio" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  prefix="$"
+                  precision={2}
+                  min={0}
+                  placeholder="0.00"
+                />
+              </Form.Item>
+            </Col>
+
+            {/* Costo - Campo monetario */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Costo"
+                name="costo"
+                rules={[{ required: true, message: "Ingrese el costo" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  prefix="$"
+                  precision={2}
+                  min={0}
+                  placeholder="0.00"
+                />
+              </Form.Item>
+            </Col>
+
+            {/* Utilidad - Campo porcentaje */}
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Utilidad (%)"
+                name="utilidad"
+                rules={[{ required: true, message: "Ingrese la utilidad" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  suffix="%"
+                  min={0}
+                  max={100}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+
+        {/* ==================== SECCIÓN 3: Cantidades ==================== */}
+        <Card title="Cantidades y Medidas" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            {/* Cantidad - Campo numérico */}
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Cantidad"
+                name="cantidad"
+                rules={[{ required: true, message: "Ingrese la cantidad" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  min={1}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+
+            {/* Unidad de Medida - Selector */}
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Unidad de Medida"
+                name="unidad_medida"
+                rules={[{ required: true, message: "Seleccione la unidad" }]}
+              >
+                <Select placeholder="Seleccione">
+                  {UNIDADES.map((u) => (
+                    <Select.Option key={u.value} value={u.value}>
+                      {u.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            {/* Stock Mínimo - Campo numérico */}
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Stock Mínimo"
+                name="stock_minimo"
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  min={0}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+
+            {/* Stock Máximo - Campo numérico */}
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Stock Máximo"
+                name="stock_maximo"
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  min={0}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+
+        {/* ==================== SECCIÓN 4: Observaciones (opcional) ==================== */}
+        <Card title="Observaciones" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            <Col xs={24}>
+              <Form.Item
+                label="Descripción"
+                name="descripcion"
+              >
+                <Input.TextArea
+                  rows={3}
+                  placeholder="Observaciones adicionales..."
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+      </DataCreate>
+    </div>
+  );
+}
+
+export default EjemploCreate;
+
+
+// ============================================================================
+// ARCHIVO: ejemploEdit.tsx
+// ============================================================================
+
+/*
+import { Card, Col, Divider, Form, Input, InputNumber, Row, Select, Switch } from "antd";
+import DataEdit from "../../components/DataEdit";
+import { useParams } from "react-router-dom";
+
+// Mismas constantes que en Create
+const CATEGORIAS = [...];
+const ESTADOS = [...];
+const UNIDADES = [...];
+
+function EjemploEdit(props: any) {
+  const params = useParams();
+
+  return (
+    <div>
+      <DataEdit ds={props.ds} resource={props.resource}>
+        {/* Misma estructura que Create, pero:
+         * 1. Campo código puede ser readOnly
+         * 2. Puede tener secciones adicionales (ej: historial)
+         *}
+
+        <Card title="Información Básica" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Código"
+                name="codigo"
+                rules={[{ required: true, message: "Ingrese el código" }]}
+              >
+                {/* Campo solo lectura en edición *}
+                <Input readOnly style={{ backgroundColor: "#f5f5f5" }} />
+              </Form.Item>
+            </Col>
+            {/* ... resto de campos igual que Create ... *}
+          </Row>
+        </Card>
+
+        {/* ... resto de secciones ... *}
+      </DataEdit>
+
+      {/* OPCIONAL: Sección de detalle relacionado *}
+      {/*
+      <Divider orientation="left">Detalle Relacionado</Divider>
+      <DetalleRelacionado
+        ds={props.ds}
+        resourceParent={`${props.resource}/${params.id}`}
+        resource="detalle"
+      />
+      *}
+    </div>
+  );
+}
+
+export default EjemploEdit;
+*/
+
+
+// ============================================================================
+// ARCHIVO: ejemplo.tsx (Lista)
+// ============================================================================
+
+/*
+import DataList from "../../components/DataList";
+
+function Ejemplo(props: any) {
+  const columns = [
+    {
+      title: "Código",
+      dataIndex: "codigo",
+      key: "codigo",
+    },
+    {
+      title: "Nombre",
+      dataIndex: "nombre",
+      key: "nombre",
+    },
+    {
+      title: "Categoría",
+      dataIndex: "categoria",
+      key: "categoria",
+    },
+    {
+      title: "Precio",
+      dataIndex: "precio",
+      key: "precio",
+      render: (value: number) => `$ ${value?.toFixed(2) || '0.00'}`,
+    },
+    {
+      title: "Habilitado",
+      dataIndex: "habilitado",
+      key: "habilitado",
+      render: (value: boolean) => value ? "Sí" : "No",
+    },
+  ];
+
+  return (
+    <DataList
+      ds={props.ds}
+      resource={props.resource}
+      columns={columns}
+      // Opciones:
+      // addAction={true}    // Mostrar botón "Nuevo"
+      // editAction={true}   // Mostrar link "Editar"
+      // delAction={true}    // Mostrar link "Eliminar"
+      // viewAction={false}  // Mostrar link "Ver"
+    />
+  );
+}
+
+export default Ejemplo;
+*/
+
+
+// ============================================================================
+// REGISTRO EN MAIN.TSX (Rutas)
+// ============================================================================
+
+/*
+// Importar componentes
+import Ejemplo from "./cruds/ejemplo/ejemplo";
+import EjemploCreate from "./cruds/ejemplo/ejemploCreate";
+import EjemploEdit from "./cruds/ejemplo/ejemploEdit";
+
+// Agregar rutas dentro del <Routes>
+<Route
+  path="/ejemplo"
+  element={<Ejemplo ds={ds} resource="ejemplo" />}
+/>
+<Route
+  path="/ejemplo/create"
+  element={<EjemploCreate ds={ds} resource="ejemplo" />}
+/>
+<Route
+  path="/ejemplo/edit/:id"
+  element={<EjemploEdit ds={ds} resource="ejemplo" />}
+/>
+
+// Agregar al menú de navegación
+<Menu.Item key="ejemplo">
+  <Link to="/ejemplo">Ejemplo</Link>
+</Menu.Item>
+*/

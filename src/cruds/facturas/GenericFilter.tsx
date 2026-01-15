@@ -36,7 +36,14 @@ const GenericFilter = forwardRef<GenericFilterRef, GenericFilterProps>(
         });
       },
       setFilterValues: (values: any) => {
-        form.setFieldsValue(values);
+        // Convert date strings back to dayjs objects
+        const processedValues = { ...values };
+        attributesToConvertToDate?.forEach((key) => {
+          if (processedValues[key] !== null && processedValues[key] !== undefined && typeof processedValues[key] === 'string') {
+            processedValues[key] = dayjs(processedValues[key]);
+          }
+        });
+        form.setFieldsValue(processedValues);
       }
     }));
 

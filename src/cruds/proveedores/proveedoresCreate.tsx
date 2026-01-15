@@ -1,73 +1,74 @@
-import { Form, Input, InputNumber, Select } from "antd";
+import { Card, Col, Form, Input, Row } from "antd";
 import DataCreate from "../../components/DataCreate";
 
 function ProveedoresCreate(props: any) {
   return (
     <DataCreate ds={props.ds} resource={props.resource}>
-      <Form.Item
-        label="Nombre"
-        name="nombre"
-        rules={[
-          {
-            required: true,
-            message: "Por Favor ingrese el valor!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+      {/* Información del Proveedor */}
+      <Card title="Información del Proveedor" size="small" style={{ marginBottom: 16 }}>
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={12}>
+            <Form.Item
+              label="Nombre"
+              name="nombre"
+              rules={[{ required: true, message: "Ingrese el nombre del proveedor" }]}
+            >
+              <Input placeholder="Razón social o nombre" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={12} md={8}>
+            <Form.Item
+              label="CUIT"
+              name="cuit"
+              rules={[{ required: true, message: "Ingrese el CUIT" }]}
+            >
+              <Input placeholder="XX-XXXXXXXX-X" />
+            </Form.Item>
+          </Col>
+        </Row>
+      </Card>
 
-      <Form.Item
-        label="Cuit"
-        name="cuit"
-        rules={[
-          {
-            required: true,
-            message: "Por Favor ingrese el valor!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+      {/* Información de Contacto */}
+      <Card title="Información de Contacto" size="small" style={{ marginBottom: 16 }}>
+        <Row gutter={24}>
+          <Col xs={24} sm={12} md={8}>
+            <Form.Item
+              label="Teléfono"
+              name="telefono"
+              rules={[{ required: true, message: "Ingrese el teléfono" }]}
+            >
+              <Input placeholder="Ej: +54 11 1234-5678" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={12} md={10}>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: "Ingrese el email" },
+                { type: "email", message: "Ingrese un email válido" }
+              ]}
+            >
+              <Input placeholder="correo@ejemplo.com" />
+            </Form.Item>
+          </Col>
+        </Row>
+      </Card>
 
-      <Form.Item
-        label="Direccion"
-        name="direccion"
-        rules={[
-          {
-            required: true,
-            message: "Por Favor ingrese el valor!",
-          },
-        ]}
-      >
-        <Input size="large" />
-      </Form.Item>
-
-      <Form.Item
-        label="Telefono"
-        name="telefono"
-        rules={[
-          {
-            required: true,
-            message: "Por Favor ingrese el valor!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Por Favor ingrese el valor!",
-          },
-        ]}
-      >
-        <Input size="large" />
-      </Form.Item>
+      {/* Ubicación */}
+      <Card title="Ubicación" size="small" style={{ marginBottom: 16 }}>
+        <Row gutter={24}>
+          <Col xs={24}>
+            <Form.Item
+              label="Dirección"
+              name="direccion"
+              rules={[{ required: true, message: "Ingrese la dirección" }]}
+            >
+              <Input placeholder="Calle, número, localidad, provincia" />
+            </Form.Item>
+          </Col>
+        </Row>
+      </Card>
     </DataCreate>
   );
 }

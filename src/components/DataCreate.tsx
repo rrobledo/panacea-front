@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Input, InputNumber, Select, Spin } from "antd";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { Button, Form, Spin, Alert, Space } from "antd";
+import { useNavigate, useLocation } from "react-router-dom";
+import { PlusOutlined, CloseOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
+import { toast } from "../utils/notification";
 
 const formItemLayout = {
   labelCol: {
@@ -24,21 +26,20 @@ const formItemLayout = {
 
 function DataCreate(props: any) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   let form = Form.useForm()[0];
   const dataSource = props.ds;
-  let resourceParentParam = useLocation().state.resourceParent;
-  const resourceParent =
-    resourceParentParam != undefined ? `${resourceParentParam}/` : "";
+  const resourceParentParam = useLocation().state.resourceParent;
   const defaultValues = props.defaultValues;
   const attributesToConvertToDate: [] =
-    props.attributesToConvertToDate != undefined
+    props.attributesToConvertToDate !== undefined
       ? props.attributesToConvertToDate
       : [];
   const imageAttributes: [] =
-    props.imageAttributes != undefined ? props.imageAttributes : [];
+    props.imageAttributes !== undefined ? props.imageAttributes : [];
 
-  if (props.form != undefined) {
+  if (props.form !== undefined) {
     form = props.form;
   }
 
@@ -47,15 +48,16 @@ function DataCreate(props: any) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        const base64 = (reader.result as string).split(",")[1]; // remove "data:image/png;base64,"
+        const base64 = (reader.result as string).split(",")[1];
         resolve(base64);
       };
       reader.onerror = (error) => reject(error);
     });
 
   const onsubmit = async (values: any) => {
+    setError(null);
+
     attributesToConvertToDate.forEach((key) => {
-      console.log(values[key]);
       if (values[key] !== null && values[key] !== undefined) {
         values[key] = dayjs(values[key]).format("YYYY-MM-DD");
       }
@@ -63,7 +65,6 @@ function DataCreate(props: any) {
 
     for (const key of imageAttributes) {
       if (values[key] !== null && values[key] !== undefined) {
-        console.log(values[key]);
         values[key] = await toBase64(values[key]);
       }
     }
@@ -71,13 +72,12 @@ function DataCreate(props: any) {
     setIsLoading(true);
     dataSource
       .post(`${resourceParentParam}${props.resource}`, values)
-      .then((res: any) => {
-        setIsLoading(false);
+      .then(() => {
+        toast.success("Registro creado correctamente");
         navigate(-1);
       })
-      .catch((error: any) => {
-        console.log(error);
-        setIsLoading(false);
+      .catch((err: any) => {
+        setError(err.message || "Error al crear el registro");
       })
       .finally(() => {
         setIsLoading(false);
@@ -85,16 +85,16 @@ function DataCreate(props: any) {
   };
 
   useEffect(() => {
-    if (defaultValues != undefined) {
+    if (defaultValues !== undefined) {
       form.setFieldsValue(defaultValues);
     }
   }, []);
 
   if (isLoading) {
     return (
-      <>
-        <Spin tip="Loading" size="large"></Spin>
-      </>
+      <div style={{ textAlign: "center", padding: "50px" }}>
+        <Spin tip="Guardando..." size="large" />
+      </div>
     );
   }
 
@@ -105,9 +105,48 @@ function DataCreate(props: any) {
         width: "100%",
       }}
     >
-      <div>
+      {/* Header with back link and action buttons */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 16,
+        }}
+      >
         <a onClick={() => navigate(-1)}> &lt;&lt; Atras </a>
+        <Space>
+          <Button
+            icon={<CloseOutlined />}
+            onClick={() => navigate(-1)}
+            disabled={isLoading}
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => form.submit()}
+            loading={isLoading}
+          >
+            Crear
+          </Button>
+        </Space>
       </div>
+
+      {/* Show error alert */}
+      {error && (
+        <Alert
+          message="Error al crear"
+          description={error}
+          type="error"
+          showIcon
+          closable
+          onClose={() => setError(null)}
+          style={{ marginBottom: 16 }}
+        />
+      )}
+
       <div>
         <Form
           {...formItemLayout}
@@ -120,17 +159,6 @@ function DataCreate(props: any) {
           labelAlign="left"
         >
           {props.children}
-          <Form.Item
-            wrapperCol={{
-              offset: 6,
-              span: 16,
-            }}
-          >
-            <Button onClick={() => navigate(-1)}>Cancelar</Button>
-            <Button type="primary" htmlType="submit">
-              Crear
-            </Button>
-          </Form.Item>
         </Form>
       </div>
     </div>

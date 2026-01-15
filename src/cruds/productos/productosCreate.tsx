@@ -1,154 +1,180 @@
-import { Form, Input, InputNumber, Select, Switch } from "antd";
+import { Card, Col, Form, Input, InputNumber, Row, Select, Switch } from "antd";
 import DataCreate from "../../components/DataCreate";
-import CostosDetail from "./costosdetail/costosDetail";
-import { useParams } from "react-router-dom";
+
+const CATEGORIAS = [
+  { value: "ALFAJORES", label: "Alfajores" },
+  { value: "BOLLERIA", label: "Bollería" },
+  { value: "BUDINES", label: "Budines" },
+  { value: "CUADRADOS", label: "Cuadrados" },
+  { value: "FACTURAS", label: "Facturas" },
+  { value: "GALLETAS", label: "Galletas" },
+  { value: "PANADERIA", label: "Panadería" },
+  { value: "PASTAS", label: "Pastas" },
+  { value: "PASTELERIA", label: "Pastelería" },
+  { value: "PIZZAS", label: "Pizzas" },
+];
+
+const UNIDADES = [
+  { value: "GR", label: "Gramos" },
+  { value: "UN", label: "Unidades" },
+];
 
 function ProductosCreate(props: any) {
-  const params = useParams();
   return (
     <div>
       <DataCreate ds={props.ds} resource={props.resource}>
-        <Form.Item
-          label="Codigo"
-          name="codigo"
-          rules={[
-            {
-              required: true,
-              message: "Please input!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Nombre"
-          name="nombre"
-          rules={[
-            {
-              required: true,
-              message: "Please input!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        {/* Información Básica */}
+        <Card title="Información Básica" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Código"
+                name="codigo"
+                rules={[{ required: true, message: "Ingrese el código" }]}
+              >
+                <Input placeholder="Ej: PROD001" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Nombre"
+                name="nombre"
+                rules={[{ required: true, message: "Ingrese el nombre" }]}
+              >
+                <Input placeholder="Nombre del producto" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Categoría"
+                name="categoria"
+                rules={[{ required: true, message: "Seleccione una categoría" }]}
+              >
+                <Select placeholder="Seleccione categoría">
+                  {CATEGORIAS.map((cat) => (
+                    <Select.Option key={cat.value} value={cat.value}>
+                      {cat.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
 
-        <Form.Item label="Categoria" name="categoria">
-          <Select>
-            <Select.Option value="ALFAJORES">ALFAJORES</Select.Option>
-            <Select.Option value="BOLLERIA">BOLLERIA</Select.Option>
-            <Select.Option value="BUDINES">BUDINES</Select.Option>
-            <Select.Option value="CUADRADOS">CUADRADOS</Select.Option>
-            <Select.Option value="FACTURAS">FACTURAS</Select.Option>
-            <Select.Option value="GALLETAS">GALLETAS</Select.Option>
-            <Select.Option value="PANADERIA">PANADERIA</Select.Option>
-            <Select.Option value="PASTAS">PASTAS</Select.Option>
-            <Select.Option value="PASTELERIA">PASTELERIA</Select.Option>
-            <Select.Option value="PIZZAS">PIZZAS</Select.Option>
-          </Select>
-        </Form.Item>
+          <Row gutter={24}>
+            <Col xs={12} sm={6} md={4}>
+              <Form.Item
+                label="Habilitado"
+                name="habilitado"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+            <Col xs={12} sm={6} md={4}>
+              <Form.Item
+                label="Producto Final"
+                name="is_producto"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Id Referencia"
+                name="ref_id"
+                rules={[{ required: true, message: "Ingrese el ID de referencia" }]}
+              >
+                <InputNumber style={{ width: "100%" }} placeholder="ID externo" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
 
-        <Form.Item label="Habilitado" name="habilitado">
-          <Switch />
-        </Form.Item>
+        {/* Precios */}
+        <Card title="Precios y Márgenes" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Precio Actual"
+                name="precio_actual"
+                rules={[{ required: true, message: "Ingrese el precio" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  prefix="$"
+                  precision={2}
+                  min={0}
+                  placeholder="0.00"
+                />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={8}>
+              <Form.Item
+                label="Utilidad (%)"
+                name="utilidad"
+                rules={[{ required: true, message: "Ingrese la utilidad" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  suffix="%"
+                  min={0}
+                  max={100}
+                  placeholder="0"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
 
-        <Form.Item label="Producto Final" name="is_producto">
-          <Switch />
-        </Form.Item>
-
-        <Form.Item
-          label="Prioridad"
-          name="prioridad"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Precio"
-          name="precio_actual"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Id de referencia"
-          name="ref_id"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Utilidad"
-          name="utilidad"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Lote Produccion"
-          name="lote_produccion"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Medida"
-          name="unidad_medida"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value="GR">Gramos</Select.Option>
-            <Select.Option value="UN">Unidades</Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Tiempos de produccion"
-          name="tiempo_produccion"
-          rules={[
-            {
-              required: true,
-              message: "Por Favor ingrese el valor!",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
+        {/* Producción */}
+        <Card title="Producción" size="small" style={{ marginBottom: 16 }}>
+          <Row gutter={24}>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Lote Producción"
+                name="lote_produccion"
+                rules={[{ required: true, message: "Ingrese el lote" }]}
+              >
+                <InputNumber style={{ width: "100%" }} min={1} placeholder="Cantidad" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Unidad de Medida"
+                name="unidad_medida"
+                rules={[{ required: true, message: "Seleccione la unidad" }]}
+              >
+                <Select placeholder="Seleccione">
+                  {UNIDADES.map((u) => (
+                    <Select.Option key={u.value} value={u.value}>
+                      {u.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Tiempo Producción (min)"
+                name="tiempo_produccion"
+                rules={[{ required: true, message: "Ingrese el tiempo" }]}
+              >
+                <InputNumber style={{ width: "100%" }} min={0} placeholder="Minutos" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={6}>
+              <Form.Item
+                label="Prioridad"
+                name="prioridad"
+                rules={[{ required: true, message: "Ingrese la prioridad" }]}
+              >
+                <InputNumber style={{ width: "100%" }} min={0} placeholder="1-100" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
       </DataCreate>
     </div>
   );

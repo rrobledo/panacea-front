@@ -1,11 +1,11 @@
-import DataList, { GenericFilterRef } from "../../components/DataList";
+import DataList, { DataListRef } from "../../components/DataList";
 import GenericFilter from "./GenericFilter";
 import { useRef } from "react";
 import { Form, DatePicker, Select, Col, Row, InputNumber } from "antd";
 import dayjs from "dayjs";
 
 function Facturas(props: any) {
-  const dataListRef = useRef<GenericFilterRef>(null);
+  const dataListRef = useRef<DataListRef>(null);
   const dateFormat = "YYYY-MM-DD";
   
   const columns = [
