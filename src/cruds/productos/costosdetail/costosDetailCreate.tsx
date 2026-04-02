@@ -6,18 +6,13 @@ import { useEffect, useRef } from "react";
 
 function CostosDetailCreate(props: any) {
   const params = useParams();
-  const dataSource = props.ds;
   const ref = useRef<any>(null);
   const form = Form.useForm()[0];
 
   const getItem = () => {
-    dataSource
-      .get(`${props.resourceParent}`, params.producto_id)
-      .then((res: any) => {
-        form.setFieldsValue({
-          producto: res.data.absolute_url,
-        });
-      });
+    form.setFieldsValue({
+      producto: params.producto_id,
+    });
   };
 
   useEffect(() => {
@@ -30,6 +25,7 @@ function CostosDetailCreate(props: any) {
         <Form.Item
           label="Codigo Producto"
           name="producto"
+          hidden={true}
           rules={[
             {
               required: true,

@@ -101,6 +101,22 @@ function Estimaciones(props: any) {
     },
     {
       title: "Precio Local",
+      dataIndex: "precio_sugerido_final",
+      key: "precio_sugerido_final",
+      width: "10%",
+      render: (data: any) => {
+        return (
+          <div style={{ textAlign: "right" }}>
+            {data.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Precio Local",
       dataIndex: "precio_va",
       key: "precio_va",
       width: "10%",
