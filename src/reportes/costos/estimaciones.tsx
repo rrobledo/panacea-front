@@ -100,7 +100,7 @@ function Estimaciones(props: any) {
       },
     },
     {
-      title: "Precio Local",
+      title: "Precio Sugerido Local",
       dataIndex: "precio_sugerido_final",
       key: "precio_sugerido_final",
       width: "10%",
